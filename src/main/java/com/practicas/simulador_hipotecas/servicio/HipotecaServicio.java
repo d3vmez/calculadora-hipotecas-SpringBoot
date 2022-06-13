@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
+import com.practicas.simulador_hipotecas.modelo.InteresTipo;
 
 
 /**
@@ -96,10 +97,13 @@ public class HipotecaServicio {
 		double prestamo = hipoteca.getPrestamo();
 		//Obtener el porcentaje del interes a pagar en cada cuota
 		float tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
+		//El interes es fijo o es variable
+		boolean esInteresFijo = true;
+		if(hipoteca.getTipoInteres().name().equals(InteresTipo.variable.name())) esInteresFijo = false;
 		
 		for (int i = 0; i <= nCuotas; i++) {
 			
-			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo);
+			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo, esInteresFijo);
 			hipoteca.anadirAmortizacion(amortizacion);
 		
 		}

@@ -3,6 +3,7 @@ package com.practicas.simulador_hipotecas.servicio;
 import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
+import com.practicas.simulador_hipotecas.modelo.CalculoInteres;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 
 /**
@@ -13,7 +14,7 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
  *
  */
 @Service
-public class AmortizacionServicio {
+public class AmortizacionServicio implements CalculoInteres{
 	
 	private static double capitalPorAmortizar;
 	private static double totalPorAmortizar;
@@ -28,7 +29,7 @@ public class AmortizacionServicio {
 	 * @param double prestamo, importe a devolver
 	 * @return Amortizacion amortizacion
 	 */
-	public Amortizacion crearAmortizacion(int nCuotas, double cuota, float tasaInteres, double prestamo) {
+	public Amortizacion crearAmortizacion(int nCuotas, double cuota, float tasaInteres, double prestamo, boolean esInteresFijo) {
 		
 		if(nCuotas == 0) {
 			AmortizacionServicio.capitalPorAmortizar = prestamo;
@@ -37,7 +38,7 @@ public class AmortizacionServicio {
 		}
 		
 		//Calcular intereses
-		double intereses = calcularIntereses(tasaInteres, capitalPorAmortizar);
+		double intereses = calcularIntereses(tasaInteres, capitalPorAmortizar, esInteresFijo);
 		actualizarInteresesTotal(intereses);
 		
 		//Calcular cuota de amortizacion
@@ -62,9 +63,11 @@ public class AmortizacionServicio {
 	 * @param double capitalPorAmortizar
 	 * @return double intereses
 	 */
-	private double calcularIntereses(float tasaInteres, double capitalPorAmortizar) {
+	private double calcularIntereses(float tasaInteres, double capitalPorAmortizar, boolean esInteresFijo) {
 		
-		return capitalPorAmortizar * tasaInteres;
+		if(esInteresFijo) return calcularInteresFijo(tasaInteres, capitalPorAmortizar);
+		
+		return calcularInteresVariable(tasaInteres, capitalPorAmortizar);
 		
 	}
 	

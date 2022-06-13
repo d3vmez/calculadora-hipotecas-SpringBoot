@@ -42,11 +42,7 @@ public class HipotecaControlador {
 		hipotecaServicio.calcularCuota(hipoteca);		
 		hipotecaServicio.calcularAmortizaciones(hipoteca);
 		System.out.println(hipoteca.getTipoInteres().toString());
-		
-		for (Amortizacion amortizacion : hipoteca.getAmortizaciones()) {
-			System.out.println(amortizacion.toString());
-		}
-		
+	
 		model.addAttribute("amortizaciones", hipoteca.getAmortizaciones());
 		model.addAttribute("hipoteca", hipoteca);
 		System.out.println();

@@ -8,7 +8,7 @@ public class SimuladorHipotecasApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SimuladorHipotecasApplication.class, args);
-		//prueba
+	
 	}
 
 }
