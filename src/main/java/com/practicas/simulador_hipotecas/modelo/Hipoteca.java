@@ -20,6 +20,7 @@ public class Hipoteca {
 	private double prestamo;
 	private double cuota;
 	private int plazo;
+	private int plazoRestante;
 	private float tasaInteres;
 	private InteresTipo tipoInteres;
 	public List<Amortizacion> amortizaciones = new ArrayList<>();
@@ -31,13 +32,14 @@ public class Hipoteca {
 	}
 
 	public Hipoteca(double capitalInmueble, double capitalAportado, double prestamo, double cuota, int plazo,
-			float tasaInteres, InteresTipo tipoInteres, List<Amortizacion> amortizaciones) {
+			float tasaInteres, InteresTipo tipoInteres, List<Amortizacion> amortizaciones, int plazoRestante) {
 		super();
 		this.capitalInmueble = capitalInmueble;
 		this.capitalAportado = capitalAportado;
 		this.prestamo = prestamo;
 		this.cuota = cuota;
 		this.plazo = plazo;
+		this.plazoRestante = plazoRestante;
 		this.tasaInteres = tasaInteres;
 		this.tipoInteres = tipoInteres;
 
@@ -116,8 +118,16 @@ public class Hipoteca {
 	public static void setTotalIntereses(double totalIntereses) {
 		Hipoteca.totalIntereses = totalIntereses;
 	}
-
+	
 	// Métodos
+
+	public int getPlazoRestante() {
+		return plazoRestante;
+	}
+
+	public void setPlazoRestante(int plazoRestante) {
+		this.plazoRestante = plazoRestante;
+	}
 
 	/**
 	 * Método para añadir una amortizacion a la hipoteca

@@ -8,7 +8,9 @@ package com.practicas.simulador_hipotecas.modelo;
  *
  */
 public class Amortizacion {
-
+	
+	public static double totalCapitalPorAmortizar;
+	
 	private int numeroCuota;
 	private double cuota;
 	private double interes;
@@ -81,6 +83,7 @@ public class Amortizacion {
 
 	public void setCapitalPorAmortizar(double capitalPorAmortizar) {
 		this.capitalPorAmortizar = capitalPorAmortizar;
+		totalCapitalPorAmortizar = capitalPorAmortizar;
 	}
 
 	@Override

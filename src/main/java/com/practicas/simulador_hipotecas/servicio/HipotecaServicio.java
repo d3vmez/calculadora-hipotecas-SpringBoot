@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
-import com.practicas.simulador_hipotecas.modelo.CalculoInteres;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 import com.practicas.simulador_hipotecas.modelo.InteresTipo;
 
@@ -20,6 +19,8 @@ import com.practicas.simulador_hipotecas.modelo.InteresTipo;
 public class HipotecaServicio {
 	
 	private static final int NMENSUALIDADES = 12;
+	//TODO pasar obtención del euribor a una API
+	private static float EURIBOR = 0.5f/(100*12);
 	
 	@Autowired
 	private AmortizacionServicio amortizacionServicio;
@@ -34,25 +35,37 @@ public class HipotecaServicio {
 	public double calcularCuota(Hipoteca hipoteca) {
 		
 		double cuota = 0.0;
+
+		if(hipoteca.getPlazoRestante() == 0) {
+			
+			int nAnos = hipoteca.getPlazo();
+			int cuotas = calcularNCuotas(nAnos);
+			hipoteca.setPlazoRestante(cuotas);
+		}
+		
+		int nCuotas = hipoteca.getPlazoRestante();
+		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
+		
+		double numerador = tasaInteres * Math.pow(1 + tasaInteres, nCuotas);
+		double denominador = Math.pow(1 + tasaInteres, nCuotas) - 1;
+		
+		cuota = hipoteca.getPrestamo() * (numerador/denominador);
+		
+		// Setear valor de la cuota
+		hipoteca.setCuota(cuota);
+		return cuota;
+		
+	}
+	
+	
+	public void calcularValorDelPrestamo(Hipoteca hipoteca) {
+		
 		double capitalInmueble = hipoteca.getCapitalInmueble();
 		double capitalAportado = hipoteca.getCapitalAportado();
 		
 		// Setear valor del préstamo
 		double prestamo = capitalInmueble-capitalAportado;
 		hipoteca.setPrestamo(prestamo);
-		
-		int nCuotas = calcularNCuotas(hipoteca.getPlazo());
-		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
-		
-		double numerador = tasaInteres * Math.pow(1 + tasaInteres, nCuotas);
-		double denominador = Math.pow(1 + tasaInteres, nCuotas) - 1;
-		
-		cuota = prestamo * (numerador/denominador);
-		
-		// Setear valor de la cuota
-		hipoteca.setCuota(cuota);
-		return cuota;
-		
 	}
 	
 	/**
@@ -82,7 +95,7 @@ public class HipotecaServicio {
 		if(hipoteca.getTipoInteres().name().equals(InteresTipo.variable.name())) esInteresFijo = false;
 		
 		if(esInteresFijo)	return tasaInteres/(100*NMENSUALIDADES);
-		return (tasaInteres/(100*NMENSUALIDADES))+CalculoInteres.EURIBOR;
+		return (tasaInteres/(100*NMENSUALIDADES))+EURIBOR;
 	}
 	
 	/**
@@ -103,34 +116,54 @@ public class HipotecaServicio {
 		//Obtener el porcentaje del interes a pagar en cada cuota
 		 float tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
 
+		 
+		int acumuladorPlazos = 1;
 		for (int i = 0; i <= nCuotas; i++) {
 			
-//			acumulador = 0;
-//			if acumulador == 12{
+			// Si el acumulador de plazos llega a 12, es decir, se ha cumplido un año con la hipoteca
+			// se tiene que recalcular la hipoteca
+//			if(acumuladorPlazos == 14 && hipoteca.getTipoInteres().equals(InteresTipo.variable)) {
 //				
-//				recalcularHipoteca()
-//				acumulador == 0
+//				cuota = recalcularHipoteca(hipoteca);
+//				tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
+//				prestamo = hipoteca.getPrestamo();
+//				acumuladorPlazos = 1;	
 //			}
-//			acumulador ++
+//			acumuladorPlazos++;
 			
 			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo);
 			hipoteca.anadirAmortizacion(amortizacion);
 			
-		
 		}
 			
 	}
 	
-	private void recalcularHipoteca() {
+	private double recalcularHipoteca(Hipoteca hipoteca) {
 		
 		//TODO 
 		//(Se recalcula cada año = cada 12 cuotas)
-		// Obtener el nuevo valor del euribor
-		// Setear el atributo tasa de interes con el nuevo valor
+		obtenerEURIBOR();
 		// Setear el plazo con las cuotas restantes
+		recalcularPlazoRestante(hipoteca);
 		// Obtener el capital por amortizar
+		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
 		// Calcular la cuota mensual
+		hipoteca.setPrestamo(capitalPorAmortizar);
+		return calcularCuota(hipoteca);
 		
 	}
 	
+	public void obtenerEURIBOR() {
+		float variacionEURIBOR = (float) ((Math.random() * ((1 - (-1)) + 1)) + (-1));
+		EURIBOR += variacionEURIBOR;
+	}
+	
+	public void recalcularPlazoRestante(Hipoteca hipoteca) {
+		
+		int plazoRestante = hipoteca.getPlazoRestante();
+		hipoteca.setPlazoRestante(plazoRestante-NMENSUALIDADES);
+		
+		
+	}
+		
 }

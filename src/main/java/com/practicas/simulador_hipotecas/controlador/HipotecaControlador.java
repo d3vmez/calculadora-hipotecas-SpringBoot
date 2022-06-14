@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 import com.practicas.simulador_hipotecas.servicio.HipotecaServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
-import com.practicas.simulador_hipotecas.modelo.Amortizacion;
 
 @Controller
 public class HipotecaControlador {
@@ -39,9 +38,10 @@ public class HipotecaControlador {
 		}
 		
 		hipoteca.setTotalIntereses(0);
+		hipotecaServicio.calcularValorDelPrestamo(hipoteca);
 		hipotecaServicio.calcularCuota(hipoteca);		
 		hipotecaServicio.calcularAmortizaciones(hipoteca);
-		System.out.println(hipoteca.getTipoInteres().toString());
+		
 	
 		model.addAttribute("amortizaciones", hipoteca.getAmortizaciones());
 		model.addAttribute("hipoteca", hipoteca);

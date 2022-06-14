@@ -3,7 +3,6 @@ package com.practicas.simulador_hipotecas.servicio;
 import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
-import com.practicas.simulador_hipotecas.modelo.CalculoInteres;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 
 /**
