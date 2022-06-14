@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
+import com.practicas.simulador_hipotecas.modelo.CalculoInteres;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 import com.practicas.simulador_hipotecas.modelo.InteresTipo;
 
@@ -41,7 +42,7 @@ public class HipotecaServicio {
 		hipoteca.setPrestamo(prestamo);
 		
 		int nCuotas = calcularNCuotas(hipoteca.getPlazo());
-		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
+		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
 		
 		double numerador = tasaInteres * Math.pow(1 + tasaInteres, nCuotas);
 		double denominador = Math.pow(1 + tasaInteres, nCuotas) - 1;
@@ -50,8 +51,6 @@ public class HipotecaServicio {
 		
 		// Setear valor de la cuota
 		hipoteca.setCuota(cuota);
-		System.out.println("aaa" +tasaInteres);
-		System.out.println(cuota);
 		return cuota;
 		
 	}
@@ -76,9 +75,14 @@ public class HipotecaServicio {
 	 * @param float tasaInteres
 	 * @return
 	 */
-	private float calcularTasaInteres(float tasaInteres) {
+	private float calcularTasaInteres(float tasaInteres, Hipoteca hipoteca) {
 		
-		return tasaInteres/(100*NMENSUALIDADES);
+		//El interes es fijo o es variable
+		boolean esInteresFijo = true;
+		if(hipoteca.getTipoInteres().name().equals(InteresTipo.variable.name())) esInteresFijo = false;
+		
+		if(esInteresFijo)	return tasaInteres/(100*NMENSUALIDADES);
+		return (tasaInteres/(100*NMENSUALIDADES))+CalculoInteres.EURIBOR;
 	}
 	
 	/**
@@ -88,26 +92,45 @@ public class HipotecaServicio {
 	 * @param Hipoteca hipoteca
 	 */
 	public void calcularAmortizaciones(Hipoteca hipoteca){
-		
+				
 		//Obtener numero de cuotas
 		int nCuotas = calcularNCuotas(hipoteca.getPlazo());
 		//Obtener cuota (interes + amortizacion)
 		double cuota = hipoteca.getCuota();
 		//Obtener importe a devolver
 		double prestamo = hipoteca.getPrestamo();
-		//Obtener el porcentaje del interes a pagar en cada cuota
-		float tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
-		//El interes es fijo o es variable
-		boolean esInteresFijo = true;
-		if(hipoteca.getTipoInteres().name().equals(InteresTipo.variable.name())) esInteresFijo = false;
 		
+		//Obtener el porcentaje del interes a pagar en cada cuota
+		 float tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
+
 		for (int i = 0; i <= nCuotas; i++) {
 			
-			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo, esInteresFijo);
+//			acumulador = 0;
+//			if acumulador == 12{
+//				
+//				recalcularHipoteca()
+//				acumulador == 0
+//			}
+//			acumulador ++
+			
+			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo);
 			hipoteca.anadirAmortizacion(amortizacion);
+			
 		
 		}
 			
+	}
+	
+	private void recalcularHipoteca() {
+		
+		//TODO 
+		//(Se recalcula cada año = cada 12 cuotas)
+		// Obtener el nuevo valor del euribor
+		// Setear el atributo tasa de interes con el nuevo valor
+		// Setear el plazo con las cuotas restantes
+		// Obtener el capital por amortizar
+		// Calcular la cuota mensual
+		
 	}
 	
 }

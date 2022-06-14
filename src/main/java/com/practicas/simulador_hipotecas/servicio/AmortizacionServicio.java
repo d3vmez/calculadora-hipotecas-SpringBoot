@@ -14,7 +14,7 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
  *
  */
 @Service
-public class AmortizacionServicio implements CalculoInteres{
+public class AmortizacionServicio{
 	
 	private static double capitalPorAmortizar;
 	private static double totalPorAmortizar;
@@ -29,7 +29,7 @@ public class AmortizacionServicio implements CalculoInteres{
 	 * @param double prestamo, importe a devolver
 	 * @return Amortizacion amortizacion
 	 */
-	public Amortizacion crearAmortizacion(int nCuotas, double cuota, float tasaInteres, double prestamo, boolean esInteresFijo) {
+	public Amortizacion crearAmortizacion(int nCuotas, double cuota, float tasaInteres, double prestamo) {
 		
 		if(nCuotas == 0) {
 			AmortizacionServicio.capitalPorAmortizar = prestamo;
@@ -38,7 +38,7 @@ public class AmortizacionServicio implements CalculoInteres{
 		}
 		
 		//Calcular intereses
-		double intereses = calcularIntereses(tasaInteres, capitalPorAmortizar, esInteresFijo);
+		double intereses = calcularIntereses(tasaInteres, capitalPorAmortizar);
 		actualizarInteresesTotal(intereses);
 		
 		//Calcular cuota de amortizacion
@@ -63,11 +63,10 @@ public class AmortizacionServicio implements CalculoInteres{
 	 * @param double capitalPorAmortizar
 	 * @return double intereses
 	 */
-	private double calcularIntereses(float tasaInteres, double capitalPorAmortizar, boolean esInteresFijo) {
+	private double calcularIntereses(float tasaInteres, double capitalPorAmortizar) {
+	
 		
-		if(esInteresFijo) return calcularInteresFijo(tasaInteres, capitalPorAmortizar);
-		
-		return calcularInteresVariable(tasaInteres, capitalPorAmortizar);
+		return capitalPorAmortizar * tasaInteres;
 		
 	}
 	
