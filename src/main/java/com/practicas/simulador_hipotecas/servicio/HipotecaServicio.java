@@ -18,9 +18,9 @@ import com.practicas.simulador_hipotecas.modelo.InteresTipo;
 @Service
 public class HipotecaServicio {
 	//asdasdassadasda
-	private static final int NMENSUALIDADES = 6*2;
+	private static final int NMENSUALIDADES = 12;
 	//TODO pasar obtención del euribor a una API
-	private static float EURIBOR = 0.5f/(100*12);
+	private static float EURIBOR = 0.5f/(100*NMENSUALIDADES);
 	private static final int EURIBOR_MIN=-1;
 	private static final int EURIBOR_MAX=1;
 	
@@ -155,7 +155,7 @@ public class HipotecaServicio {
 		
 	}
 	
-	public void obtenerEURIBOR(int quitarEsteParametro, int quitarEsteMas) {
+	public void obtenerEURIBOR() {
 		float variacionEURIBOR = (float) ((Math.random() * ((EURIBOR_MAX - EURIBOR_MIN) + 1)) + EURIBOR_MAX);
 		EURIBOR += variacionEURIBOR/(100*NMENSUALIDADES);
 	}
