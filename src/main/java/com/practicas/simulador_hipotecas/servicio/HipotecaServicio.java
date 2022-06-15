@@ -155,7 +155,7 @@ public class HipotecaServicio {
 		
 	}
 	
-	public void obtenerEURIBOR(int quitarEsteParametro, int quitarEsteMas) {
+	public void obtenerEURIBOR() {
 		float variacionEURIBOR = (float) ((Math.random() * ((EURIBOR_MAX - EURIBOR_MIN) + 1)) + EURIBOR_MAX);
 		EURIBOR += variacionEURIBOR/(100*NMENSUALIDADES);
 	}
