@@ -141,16 +141,16 @@ public class HipotecaServicio {
 	
 	private double recalcularHipoteca(Hipoteca hipoteca) {
 		
-		//TODO 
-		//(Se recalcula cada año = cada 12 cuotas)
-		obtenerEURIBOR();
-		// Setear el plazo con las cuotas restantes
-		recalcularPlazoRestante(hipoteca);
-		// Obtener el capital por amortizar
-		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
-		System.out.println("capital por amortizar: " + capitalPorAmortizar);
-		// Calcular la cuota mensual
-		hipoteca.setPrestamo(capitalPorAmortizar);
+//		//TODO 
+//		//(Se recalcula cada año = cada 12 cuotas)
+//		obtenerEURIBOR();
+//		// Setear el plazo con las cuotas restantes
+//		recalcularPlazoRestante(hipoteca);
+//		// Obtener el capital por amortizar
+//		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
+//		System.out.println("capital por amortizar: " + capitalPorAmortizar);
+//		// Calcular la cuota mensual
+//		hipoteca.setPrestamo(capitalPorAmortizar);
 		return calcularCuota(hipoteca);
 		
 	}
