@@ -20,7 +20,9 @@ public class HipotecaServicio {
 	
 	private static final int NMENSUALIDADES = 12;
 	//TODO pasar obtención del euribor a una API
-	private static float EURIBOR = 0.5f/(100*12);
+	private static float EURIBOR = 0.5f/(100*NMENSUALIDADES);
+	private static final int EURIBOR_MIN=-1;
+	private static final int EURIBOR_MAX=1;
 	
 	@Autowired
 	private AmortizacionServicio amortizacionServicio;
@@ -44,7 +46,6 @@ public class HipotecaServicio {
 		}
 		
 		int nCuotas = hipoteca.getPlazoRestante();
-		System.out.println(hipoteca.getTasaInteres());
 		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
 		
 		double numerador = tasaInteres * Math.pow(1 + tasaInteres, nCuotas);
@@ -141,29 +142,27 @@ public class HipotecaServicio {
 	
 	private double recalcularHipoteca(Hipoteca hipoteca) {
 		
-//		//TODO 
-//		//(Se recalcula cada año = cada 12 cuotas)
-//		obtenerEURIBOR();
-//		// Setear el plazo con las cuotas restantes
-//		recalcularPlazoRestante(hipoteca);
-//		// Obtener el capital por amortizar
-//		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
-//		System.out.println("capital por amortizar: " + capitalPorAmortizar);
-//		// Calcular la cuota mensual
-//		hipoteca.setPrestamo(capitalPorAmortizar);
+		//TODO 
+		//(Se recalcula cada año = cada 12 cuotas)
+		obtenerEURIBOR();
+		// Setear el plazo con las cuotas restantes
+		recalcularPlazoRestante(hipoteca);
+		// Obtener el capital por amortizar
+		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
+		// Calcular la cuota mensual
+		hipoteca.setPrestamo(capitalPorAmortizar);
 		return calcularCuota(hipoteca);
 		
 	}
 	
 	public void obtenerEURIBOR() {
-		float variacionEURIBOR = (float) ((Math.random() * ((1 - (-1)) + 1)) + (-1));
-		EURIBOR += variacionEURIBOR/(100*12);
+		float variacionEURIBOR = (float) ((Math.random() * ((EURIBOR_MAX - EURIBOR_MIN) + 1)) + EURIBOR_MAX);
+		EURIBOR += variacionEURIBOR/(100*NMENSUALIDADES);
 	}
 	
 	public void recalcularPlazoRestante(Hipoteca hipoteca) {
 		
-		int plazoRestante = hipoteca.getPlazoRestante();
-		hipoteca.setPlazoRestante(plazoRestante-NMENSUALIDADES);
+		hipoteca.setPlazoRestante(hipoteca.getPlazoRestante()-NMENSUALIDADES);
 		
 		
 	}
