@@ -15,8 +15,8 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 @Service
 public class AmortizacionServicio{
 	
-	private static double capitalPorAmortizar;
-	private static double totalPorAmortizar;
+	public static double capitalPorAmortizar;
+	public static double totalPorAmortizar;
 	
 	/**
 	 * 

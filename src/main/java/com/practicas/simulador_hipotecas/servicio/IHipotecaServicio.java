@@ -10,7 +10,7 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
  *
  */
 public interface IHipotecaServicio {
-	
+		
 	// Métodos comunes
 	
 	/**

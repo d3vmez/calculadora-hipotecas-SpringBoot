@@ -45,7 +45,7 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 		//Obtener el porcentaje del interes a pagar en cada cuota
 		float tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
 		
-		for (int i = 0; i <= nCuotas; i++) {
+		for (int i = 1; i <= nCuotas; i++) {
 			
 			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo);
 			hipoteca.anadirAmortizacion(amortizacion);
@@ -58,5 +58,5 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 	public float calcularTasaInteres(float tasaInteres) {
 		return tasaInteres/(100*Hipoteca.NMENSUALIDADES);
 	}
-
+	
 }

@@ -120,8 +120,6 @@ public class Hipoteca {
 		Hipoteca.totalIntereses = totalIntereses;
 	}
 	
-	// Métodos
-
 	public int getPlazoRestante() {
 		return plazoRestante;
 	}
@@ -129,6 +127,8 @@ public class Hipoteca {
 	public void setPlazoRestante(int plazoRestante) {
 		this.plazoRestante = plazoRestante;
 	}
+	
+	// Métodos
 
 	/**
 	 * Método para añadir una amortizacion a la hipoteca
@@ -137,6 +137,11 @@ public class Hipoteca {
 	 */
 	public void anadirAmortizacion(Amortizacion amortizacion) {
 		this.amortizaciones.add(amortizacion);
+	}
+	
+	public boolean esTipoFijo() {
+		if(this.tipoInteres == (InteresTipo.fijo)) return true;
+		return false;
 	}
 
 	@Override

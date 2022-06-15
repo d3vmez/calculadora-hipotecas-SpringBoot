@@ -6,24 +6,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 import com.practicas.simulador_hipotecas.servicio.HipotecaFijaServicio;
-import com.practicas.simulador_hipotecas.servicio.HipotecaServicio;
+import com.practicas.simulador_hipotecas.servicio.HipotecaVariableServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
 
 @Controller
 public class HipotecaControlador {
-	
-	@Autowired
-	private HipotecaServicio hipotecaServicio;
-	
+		
 	@Autowired
 	private HipotecaFijaServicio hipotecaFijaServicio;
 	
+	@Autowired
+	private HipotecaVariableServicio hipotecaVariableServicio;
 	
-	@GetMapping(path= {RutaUtil.RUTA_HIPOTECA})
+	
+	@GetMapping(path= {RutaUtil.RUTA_HIPOTECA, RutaUtil.RUTA_INICIO})
 	public String mortgage(Model model) {
+		System.out.println("entro");
+		
+		if(model.getAttribute("amortizaciones2") != null) {
+			model.addAttribute("amortizaciones", model.getAttribute("amortizaciones2"));
+			model.addAttribute("hipoteca2", model.getAttribute("hipoteca"));
+		}
 		
 		model.addAttribute("hipoteca", new Hipoteca());
 		
@@ -33,7 +40,7 @@ public class HipotecaControlador {
 	
 	@SuppressWarnings("static-access")
 	@PostMapping(RutaUtil.RUTA_HIPOTECA_SUBMIT)
-	public String mortgageSubmit(@ModelAttribute("hipoteca") Hipoteca hipoteca, Model model) {
+	public String mortgageSubmit(@ModelAttribute("hipoteca") Hipoteca hipoteca, Model model, RedirectAttributes redirectAttributes) {
 		
 		// validacion el importe inicial no puede ser inferior al 10% del precio del inmueble ni inferior al total del importe abonado al inicio
 		if(hipoteca.getCapitalInmueble() * 0.1 > hipoteca.getCapitalAportado() || hipoteca.getCapitalInmueble() < hipoteca.getCapitalAportado()) {
@@ -42,16 +49,21 @@ public class HipotecaControlador {
 		}
 		
 		hipoteca.setTotalIntereses(0);
-		hipotecaFijaServicio.calcularValorDelPrestamo(hipoteca);
-		hipotecaFijaServicio.calcularCuota(hipoteca);		
-		hipotecaFijaServicio.calcularAmortizaciones(hipoteca);
 		
-	
-		model.addAttribute("amortizaciones", hipoteca.getAmortizaciones());
-		model.addAttribute("hipoteca", hipoteca);
-		System.out.println();
+		if(hipoteca.esTipoFijo()) {
+			hipotecaFijaServicio.calcularCuota(hipoteca);		
+			hipotecaFijaServicio.calcularAmortizaciones(hipoteca);
+		}else {
+			hipotecaVariableServicio.calcularCuota(hipoteca);		
+			hipotecaVariableServicio.calcularAmortizaciones(hipoteca);
+		}
+
+		redirectAttributes.addFlashAttribute("amortizaciones2", hipoteca.getAmortizaciones());
+		redirectAttributes.addFlashAttribute("hipoteca", hipoteca);
 		
-		return "index";
+
+		
+		return "redirect:" + RutaUtil.RUTA_HIPOTECA;
 	}
 	
 	
