@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
+import com.practicas.simulador_hipotecas.servicio.HipotecaFijaServicio;
 import com.practicas.simulador_hipotecas.servicio.HipotecaServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
 
@@ -16,6 +17,9 @@ public class HipotecaControlador {
 	
 	@Autowired
 	private HipotecaServicio hipotecaServicio;
+	
+	@Autowired
+	private HipotecaFijaServicio hipotecaFijaServicio;
 	
 	
 	@GetMapping(path= {RutaUtil.RUTA_HIPOTECA})
@@ -38,9 +42,9 @@ public class HipotecaControlador {
 		}
 		
 		hipoteca.setTotalIntereses(0);
-		hipotecaServicio.calcularValorDelPrestamo(hipoteca);
-		hipotecaServicio.calcularCuota(hipoteca);		
-		hipotecaServicio.calcularAmortizaciones(hipoteca);
+		hipotecaFijaServicio.calcularValorDelPrestamo(hipoteca);
+		hipotecaFijaServicio.calcularCuota(hipoteca);		
+		hipotecaFijaServicio.calcularAmortizaciones(hipoteca);
 		
 	
 		model.addAttribute("amortizaciones", hipoteca.getAmortizaciones());

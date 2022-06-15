@@ -13,6 +13,7 @@ import java.util.List;
 public class Hipoteca {
 	
 	private static double totalIntereses;
+	public static final int NMENSUALIDADES = 12;
 
 	// Atributos
 	private double capitalInmueble;

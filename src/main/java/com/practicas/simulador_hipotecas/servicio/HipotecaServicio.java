@@ -17,8 +17,7 @@ import com.practicas.simulador_hipotecas.modelo.InteresTipo;
  */
 @Service
 public class HipotecaServicio {
-	//asdasdassadasda
-	private static final int NMENSUALIDADES = 6*2;
+	
 	//TODO pasar obtención del euribor a una API
 	private static float EURIBOR = 0.5f/(100*12);
 	private static final int EURIBOR_MIN=-1;
@@ -79,7 +78,7 @@ public class HipotecaServicio {
 	 */
 	private int calcularNCuotas (int nAnos) {
 		
-		return nAnos * NMENSUALIDADES;
+		return nAnos * Hipoteca.NMENSUALIDADES;
 		
 	}
 	
@@ -96,8 +95,8 @@ public class HipotecaServicio {
 		boolean esInteresFijo = true;
 		if(hipoteca.getTipoInteres().name().equals(InteresTipo.variable.name())) esInteresFijo = false;
 		
-		if(esInteresFijo)	return tasaInteres/(100*NMENSUALIDADES);
-		return (tasaInteres/(100*NMENSUALIDADES))+EURIBOR;
+		if(esInteresFijo)	return tasaInteres/(100*Hipoteca.NMENSUALIDADES);
+		return (tasaInteres/(100*Hipoteca.NMENSUALIDADES))+EURIBOR;
 	}
 	
 	/**
@@ -157,13 +156,12 @@ public class HipotecaServicio {
 	
 	public void obtenerEURIBOR() {
 		float variacionEURIBOR = (float) ((Math.random() * ((EURIBOR_MAX - EURIBOR_MIN) + 1)) + EURIBOR_MAX);
-		EURIBOR += variacionEURIBOR/(100*NMENSUALIDADES);
+		EURIBOR += variacionEURIBOR/(100*Hipoteca.NMENSUALIDADES);
 	}
 	
 	public void recalcularPlazoRestante(Hipoteca hipoteca) {
 		
-		hipoteca.setPlazoRestante(hipoteca.getPlazoRestante()-NMENSUALIDADES);
-		
+		hipoteca.setPlazoRestante(hipoteca.getPlazoRestante()-Hipoteca.NMENSUALIDADES);
 		
 	}
 		
