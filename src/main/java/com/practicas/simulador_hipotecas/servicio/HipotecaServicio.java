@@ -44,6 +44,7 @@ public class HipotecaServicio {
 		}
 		
 		int nCuotas = hipoteca.getPlazoRestante();
+		System.out.println(hipoteca.getTasaInteres());
 		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
 		
 		double numerador = tasaInteres * Math.pow(1 + tasaInteres, nCuotas);
@@ -118,18 +119,18 @@ public class HipotecaServicio {
 
 		 
 		int acumuladorPlazos = 1;
-		for (int i = 0; i <= nCuotas; i++) {
+		for (int i = 1; i <= nCuotas; i++) {
 			
 			// Si el acumulador de plazos llega a 12, es decir, se ha cumplido un año con la hipoteca
 			// se tiene que recalcular la hipoteca
-//			if(acumuladorPlazos == 14 && hipoteca.getTipoInteres().equals(InteresTipo.variable)) {
-//				
-//				cuota = recalcularHipoteca(hipoteca);
-//				tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
-//				prestamo = hipoteca.getPrestamo();
-//				acumuladorPlazos = 1;	
-//			}
-//			acumuladorPlazos++;
+			if(acumuladorPlazos == 13 && hipoteca.getTipoInteres().equals(InteresTipo.variable)) {
+				
+				cuota = recalcularHipoteca(hipoteca);
+				tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres(), hipoteca);
+				prestamo = hipoteca.getPrestamo();
+				acumuladorPlazos = 1;	
+			}
+			acumuladorPlazos++;
 			
 			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo);
 			hipoteca.anadirAmortizacion(amortizacion);
@@ -147,6 +148,7 @@ public class HipotecaServicio {
 		recalcularPlazoRestante(hipoteca);
 		// Obtener el capital por amortizar
 		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
+		System.out.println("capital por amortizar: " + capitalPorAmortizar);
 		// Calcular la cuota mensual
 		hipoteca.setPrestamo(capitalPorAmortizar);
 		return calcularCuota(hipoteca);
@@ -155,7 +157,7 @@ public class HipotecaServicio {
 	
 	public void obtenerEURIBOR() {
 		float variacionEURIBOR = (float) ((Math.random() * ((1 - (-1)) + 1)) + (-1));
-		EURIBOR += variacionEURIBOR;
+		EURIBOR += variacionEURIBOR/(100*12);
 	}
 	
 	public void recalcularPlazoRestante(Hipoteca hipoteca) {

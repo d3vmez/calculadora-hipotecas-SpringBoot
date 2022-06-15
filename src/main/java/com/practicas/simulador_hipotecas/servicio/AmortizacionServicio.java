@@ -30,10 +30,10 @@ public class AmortizacionServicio{
 	 */
 	public Amortizacion crearAmortizacion(int nCuotas, double cuota, float tasaInteres, double prestamo) {
 		
-		if(nCuotas == 0) {
+		if(nCuotas == 1) {
 			AmortizacionServicio.capitalPorAmortizar = prestamo;
 			AmortizacionServicio.totalPorAmortizar = 0.0;
-			return new Amortizacion(0, 0.0 ,0.0 ,0.0 ,0.0 , prestamo);
+			//return new Amortizacion(0, 0.0 ,0.0 ,0.0 ,0.0 , prestamo);
 		}
 		
 		//Calcular intereses
@@ -104,6 +104,7 @@ public class AmortizacionServicio{
 	private void actualizarCapitalPorAmortizar(double totalAmortizado) {
 		
 		AmortizacionServicio.capitalPorAmortizar -= totalAmortizado;
+		Amortizacion.totalCapitalPorAmortizar = AmortizacionServicio.capitalPorAmortizar;
 		
 	}
 	
