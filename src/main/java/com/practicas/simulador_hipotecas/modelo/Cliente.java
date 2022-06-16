@@ -1,6 +1,6 @@
 package com.practicas.simulador_hipotecas.modelo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,6 +37,13 @@ public class Cliente {
 	private Date fechaAlta;
 	private Date fechaBaja;
 	private String imagen;
+	
+	public Rol getRol() {
+		return rol;
+	}
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
 	public int getId() {
 		return id;
 	}

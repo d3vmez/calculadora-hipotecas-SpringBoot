@@ -72,5 +72,13 @@ public class ClienteServicio {
 				
 	}
 	
+	public boolean existeEmail(String email) {
+        Optional<Cliente> clienteOp = clienteRepositorio.findByEmail(email);
+        if(clienteOp.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+	
 
 }
