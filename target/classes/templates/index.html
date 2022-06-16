@@ -82,7 +82,7 @@
 
 		</main>
 		
-		<div class="col-xl-2 info">
+		<div class="col-xl-2 info" th:if="${hipoteca2}">
 		  <h5>Precio inmueble </h5><span th:text="${#numbers.formatCurrency(hipoteca2.capitalInmueble)}"></span>
 		  <h5>Importe entrada </h5><span th:text="${#numbers.formatCurrency(hipoteca2.capitalAportado)}"></span>
 		  <h5>Prestamo: </h5><span th:text="${#numbers.formatCurrency(hipoteca2.prestamo)}"></span>
