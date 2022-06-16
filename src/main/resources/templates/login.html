@@ -33,9 +33,6 @@
                             
                             </span> <input type="password" class="form-control"
                                 placeholder="Contraseña" name="password" id="password">
-                            <button onclick="mostrarClave()" type="button"
-                                class="btn btn-light">
-                                <i id="icon" class="text-muted fa fa-eye"></i>
                             </button>
                         </div>
                         <div class="mb-4">
@@ -44,7 +41,7 @@
                         </div>
                         <p class="mb-1 text-center">
                             ¿No tienes cuenta? <a
-                                >Crear
+                                th:href="@{{ruta}(ruta=${T(com.practicas.simulador_hipotecas.utilidades.RutaUtil).RUTA_REGISTRO})}">Crear
                                 cuenta</a>
                         </p>
                     </form>
