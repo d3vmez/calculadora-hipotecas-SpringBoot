@@ -23,7 +23,7 @@ public class HipotecaControlador {
 	private HipotecaVariableServicio hipotecaVariableServicio;
 	
 	
-	@GetMapping(path= {RutaUtil.RUTA_HIPOTECA, RutaUtil.RUTA_INICIO})
+	@GetMapping(path= {RutaUtil.RUTA_INICIO})
 	public String mortgage(Model model) {
 		System.out.println("entro");
 		
