@@ -25,8 +25,8 @@ public class Simulacion {
 		return hipotecasVariables;
 	}
 
-	public void setHipotecasVariables(List<Hipoteca> hipotecasVariables) {
-		this.hipotecasVariables = hipotecasVariables;
+	public void setHipotecasVariables(Hipoteca hipoteca) {
+		this.hipotecasVariables.add(hipoteca);
 	}
 
 	public Hipoteca getHipotecaFija() {

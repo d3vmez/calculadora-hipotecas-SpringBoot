@@ -77,6 +77,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 	}
 	
 	private void obtenerEURIBOR() {
+		EURIBOR = 0.5f/(100*12);
 		float variacionEURIBOR = (float) ((Math.random() * ((EURIBOR_MAX - EURIBOR_MIN) + 1)) + EURIBOR_MAX);
 		EURIBOR += variacionEURIBOR/(100*Hipoteca.NMENSUALIDADES);
 	}

@@ -10,7 +10,7 @@ import java.util.List;
  * @author Marcos
  *
  */
-public class Hipoteca {
+public class Hipoteca implements Cloneable{
 	
 	private static double totalIntereses;
 	public static final int NMENSUALIDADES = 12;
@@ -185,6 +185,11 @@ public class Hipoteca {
 		
 		hipoteca.setPlazoRestante(hipoteca.getPlazoRestante()-Hipoteca.NMENSUALIDADES);
 		
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 	@Override
