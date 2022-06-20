@@ -70,7 +70,6 @@ public class HipotecaControlador {
 	public String prueba(@ModelAttribute("hipoteca") Hipoteca hipoteca) {
 
 		System.out.println("me pica el pito");
-		System.out.println("hola");
 		return "index";
 	}
 
