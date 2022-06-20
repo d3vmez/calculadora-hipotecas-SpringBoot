@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.practicas.simulador_hipotecas.APIProvincias.dto.Provincia;
+import com.practicas.simulador_hipotecas.APIProvincias.servicio.ProvinciaServicio;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 import com.practicas.simulador_hipotecas.servicio.HipotecaFijaServicio;
 import com.practicas.simulador_hipotecas.servicio.HipotecaVariableServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
+
+import com.google.gson.Gson;
 
 @Controller
 public class HipotecaControlador {
@@ -21,6 +25,9 @@ public class HipotecaControlador {
 	
 	@Autowired
 	private HipotecaVariableServicio hipotecaVariableServicio;
+	
+	@Autowired
+	private ProvinciaServicio provinciaServicio;
 	
 	
 	@GetMapping(path= {RutaUtil.RUTA_INICIO})
@@ -61,9 +68,13 @@ public class HipotecaControlador {
 		redirectAttributes.addFlashAttribute("amortizaciones2", hipoteca.getAmortizaciones());
 		redirectAttributes.addFlashAttribute("hipoteca", hipoteca);
 		
+		//quitar esto y meterlo en el servicio , PRUEBAAAA
+		String json = provinciaServicio.leerUrl("https://raw.githubusercontent.com/IagoLast/pselect/master/data/provincias.json");
+		Provincia [] provincias = new Gson().fromJson(json, Provincia[].class);
+		
 
 		
-		return "redirect:" + RutaUtil.RUTA_HIPOTECA;
+		return "redirect:" + RutaUtil.RUTA_INICIO;
 	}
 	
 	

@@ -143,6 +143,8 @@ public class Hipoteca {
 		if(this.tipoInteres == (InteresTipo.fijo)) return true;
 		return false;
 	}
+	
+	
 
 	@Override
 	public String toString() {
