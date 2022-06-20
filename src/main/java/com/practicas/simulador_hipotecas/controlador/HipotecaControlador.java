@@ -66,6 +66,11 @@ public class HipotecaControlador {
 		return "redirect:" + RutaUtil.RUTA_INICIO;
 	}
 	
-	
+	@PostMapping("/pablo")
+	public String prueba(@ModelAttribute("hipoteca") Hipoteca hipoteca) {
+
+		System.out.println("me pica el pito");
+		return "index";
+	}
 
 }
