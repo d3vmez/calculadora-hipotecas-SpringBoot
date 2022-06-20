@@ -63,7 +63,7 @@ public class HipotecaControlador {
 		
 
 		
-		return "redirect:" + RutaUtil.RUTA_HIPOTECA;
+		return "redirect:" + RutaUtil.RUTA_INICIO;
 	}
 	
 	

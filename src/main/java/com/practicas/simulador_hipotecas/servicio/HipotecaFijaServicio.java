@@ -17,9 +17,9 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 		
 		double cuota = 0.0;
 		
-		double prestamo = calcularValorDelPrestamo(hipoteca);
+		double prestamo = hipoteca.calcularValorDelPrestamo(hipoteca);
 		int nAnos = hipoteca.getPlazo();
-		int nCuotas = calcularNCuotas(nAnos);
+		int nCuotas = hipoteca.calcularNCuotas(nAnos);
 		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
 		
 		
@@ -37,7 +37,7 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 	public void calcularAmortizaciones(Hipoteca hipoteca) {
 		
 		//Obtener numero de cuotas
-		int nCuotas = calcularNCuotas(hipoteca.getPlazo());
+		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
 		//Obtener cuota (interes + amortizacion)
 		double cuota = hipoteca.getCuota();
 		//Obtener importe a devolver

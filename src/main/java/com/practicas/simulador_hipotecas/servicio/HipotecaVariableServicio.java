@@ -38,7 +38,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 	@Override
 	public void calcularAmortizaciones(Hipoteca hipoteca) {
 		//Obtener numero de cuotas
-		int nCuotas = calcularNCuotas(hipoteca.getPlazo());
+		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
 		//Obtener cuota (interes + amortizacion)
 		double cuota = hipoteca.getCuota();
 		//Obtener importe a devolver
@@ -85,9 +85,9 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		if(hipoteca.getPlazoRestante() == 0) {
 			
 			int nAnos = hipoteca.getPlazo();
-			int cuotas = calcularNCuotas(nAnos);
+			int cuotas = hipoteca.calcularNCuotas(nAnos);
 			hipoteca.setPlazoRestante(cuotas);
-			calcularValorDelPrestamo(hipoteca);
+			hipoteca.calcularValorDelPrestamo(hipoteca);
 		}
 	}
 	
@@ -96,7 +96,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		//(Se recalcula cada año = cada 12 cuotas)
 		obtenerEURIBOR();
 		// Setear el plazo con las cuotas restantes
-		recalcularPlazoRestante(hipoteca);
+		hipoteca.recalcularPlazoRestante(hipoteca);
 		// Obtener el capital por amortizar
 		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
 		// Calcular la cuota mensual
