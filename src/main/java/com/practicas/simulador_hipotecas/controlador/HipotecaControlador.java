@@ -83,7 +83,7 @@ public class HipotecaControlador {
 		
 		System.out.println("Hipoteca a tipo variable");
 		for (Hipoteca h : simulacion.getHipotecasVariables()) {
-			System.out.println(h.toString());
+			System.out.println(h.getCuota());
 		}
 		
 		

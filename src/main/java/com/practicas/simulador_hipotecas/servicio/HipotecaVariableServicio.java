@@ -10,7 +10,7 @@ import com.practicas.simulador_hipotecas.modelo.InteresTipo;
 @Service
 public class HipotecaVariableServicio implements IHipotecaServicio{
 	
-	private static float EURIBOR = 0.5f/(100*12);
+	private static float EURIBOR = 0.2f/(100*12);
 	private static final int EURIBOR_MIN=-1;
 	private static final int EURIBOR_MAX=1;
 	
