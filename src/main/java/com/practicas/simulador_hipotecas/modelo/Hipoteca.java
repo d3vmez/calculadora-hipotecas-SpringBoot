@@ -45,6 +45,17 @@ public class Hipoteca implements Cloneable{
 		this.tipoInteres = tipoInteres;
 
 	}
+	
+	public Hipoteca(Hipoteca hipoteca) {
+		this.capitalInmueble = hipoteca.getCapitalInmueble();
+		this.capitalAportado = hipoteca.getCapitalAportado();
+		this.prestamo = hipoteca.getPrestamo();
+		this.cuota = hipoteca.getCuota();
+		this.plazo = hipoteca.getPlazo();
+		this.plazoRestante = hipoteca.getPlazoRestante();
+		this.tasaInteres = hipoteca.getTasaInteres();
+		this.tipoInteres = hipoteca.getTipoInteres();
+	}
 
 	// Métodos de acceso
 

@@ -61,6 +61,7 @@ public class HipotecaControlador {
 		}else {
 			hipotecaVariableServicio.calcularCuota(hipoteca);		
 			hipotecaVariableServicio.calcularAmortizaciones(hipoteca);
+
 		}
 
 		redirectAttributes.addFlashAttribute("amortizaciones2", hipoteca.getAmortizaciones());
@@ -77,14 +78,8 @@ public class HipotecaControlador {
 		
 		Simulacion simulacion = new Simulacion();
 		simulacionServicio.generarHipotecas(hipoteca, simulacion);
-		
-		System.out.println("Hipoteca a tipo fijo");
-		System.out.println(simulacion.getHipotecaFija().toString());
-		
-		System.out.println("Hipoteca a tipo variable");
-		for (Hipoteca h : simulacion.getHipotecasVariables()) {
-			System.out.println(h.getCuota());
-		}
+
+		//simulacionServicio.calcularProbabilidad(simulacion);
 		
 		
 		

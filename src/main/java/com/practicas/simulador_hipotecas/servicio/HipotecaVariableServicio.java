@@ -11,14 +11,14 @@ import com.practicas.simulador_hipotecas.modelo.InteresTipo;
 public class HipotecaVariableServicio implements IHipotecaServicio{
 	
 	private static float EURIBOR = 0.2f/(100*12);
-	private static final int EURIBOR_MIN=-1;
-	private static final int EURIBOR_MAX=1;
+
 	
 	@Autowired
 	private AmortizacionServicio amortizacionServicio;
 
 	@Override
 	public double calcularCuota(Hipoteca hipoteca) {
+		
 		double cuota = 0.0;
 		
 		inicializarPlazoRestante(hipoteca);
@@ -37,6 +37,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 
 	@Override
 	public void calcularAmortizaciones(Hipoteca hipoteca) {
+
 		//Obtener numero de cuotas
 		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
 		//Obtener cuota (interes + amortizacion)
@@ -53,7 +54,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 			
 			// Si el acumulador de plazos llega a 12, es decir, se ha cumplido un año con la hipoteca
 			// se tiene que recalcular la hipoteca
-			if(acumuladorPlazos == 13 && hipoteca.getTipoInteres().equals(InteresTipo.variable)) {
+			if(acumuladorPlazos == 13 ) {
 				
 				cuota = recalcularHipoteca(hipoteca);
 				tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
@@ -66,9 +67,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 			hipoteca.anadirAmortizacion(amortizacion);
 			
 		}
-		AmortizacionServicio.capitalPorAmortizar = 0.0;
-		AmortizacionServicio.totalPorAmortizar = 0.0;
-		System.out.println(AmortizacionServicio.capitalPorAmortizar);
+
 	}
 
 	@Override
@@ -77,9 +76,10 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 	}
 	
 	private void obtenerEURIBOR() {
-		EURIBOR = 0.5f/(100*12);
-		float variacionEURIBOR = (float) ((Math.random() * ((EURIBOR_MAX - EURIBOR_MIN) + 1)) + EURIBOR_MAX);
+		EURIBOR = 0.2f/(100*12);
+		float variacionEURIBOR = (float) ((Math.random() * ((1 - (-1)) + 1)) + (-1));
 		EURIBOR += variacionEURIBOR/(100*Hipoteca.NMENSUALIDADES);
+	
 	}
 	
 	private void inicializarPlazoRestante(Hipoteca hipoteca) {
