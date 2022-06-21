@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
+import com.practicas.simulador_hipotecas.modelo.Simulacion;
 import com.practicas.simulador_hipotecas.servicio.HipotecaFijaServicio;
 import com.practicas.simulador_hipotecas.servicio.HipotecaVariableServicio;
+import com.practicas.simulador_hipotecas.servicio.SimulacionServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
 
 @Controller
@@ -21,6 +23,9 @@ public class HipotecaControlador {
 	
 	@Autowired
 	private HipotecaVariableServicio hipotecaVariableServicio;
+	
+	@Autowired
+	private SimulacionServicio simulacionServicio;
 	
 	
 	@GetMapping(path= {RutaUtil.RUTA_INICIO})
@@ -56,6 +61,7 @@ public class HipotecaControlador {
 		}else {
 			hipotecaVariableServicio.calcularCuota(hipoteca);		
 			hipotecaVariableServicio.calcularAmortizaciones(hipoteca);
+
 		}
 
 		redirectAttributes.addFlashAttribute("amortizaciones2", hipoteca.getAmortizaciones());
@@ -69,7 +75,14 @@ public class HipotecaControlador {
 	@PostMapping("/pablo")
 	public String prueba(@ModelAttribute("hipoteca") Hipoteca hipoteca) {
 
-		System.out.println("me pica el pito");
+		
+		Simulacion simulacion = new Simulacion();
+		simulacionServicio.generarHipotecas(hipoteca, simulacion);
+
+		//simulacionServicio.calcularProbabilidad(simulacion);
+		
+		
+		
 		return "index";
 	}
 

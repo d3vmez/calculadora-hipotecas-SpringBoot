@@ -10,7 +10,7 @@ import java.util.List;
  * @author Marcos
  *
  */
-public class Hipoteca {
+public class Hipoteca implements Cloneable{
 	
 	private static double totalIntereses;
 	public static final int NMENSUALIDADES = 12;
@@ -44,6 +44,17 @@ public class Hipoteca {
 		this.tasaInteres = tasaInteres;
 		this.tipoInteres = tipoInteres;
 
+	}
+	
+	public Hipoteca(Hipoteca hipoteca) {
+		this.capitalInmueble = hipoteca.getCapitalInmueble();
+		this.capitalAportado = hipoteca.getCapitalAportado();
+		this.prestamo = hipoteca.getPrestamo();
+		this.cuota = hipoteca.getCuota();
+		this.plazo = hipoteca.getPlazo();
+		this.plazoRestante = hipoteca.getPlazoRestante();
+		this.tasaInteres = hipoteca.getTasaInteres();
+		this.tipoInteres = hipoteca.getTipoInteres();
 	}
 
 	// Métodos de acceso
@@ -185,6 +196,11 @@ public class Hipoteca {
 		
 		hipoteca.setPlazoRestante(hipoteca.getPlazoRestante()-Hipoteca.NMENSUALIDADES);
 		
+	}
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 	@Override
