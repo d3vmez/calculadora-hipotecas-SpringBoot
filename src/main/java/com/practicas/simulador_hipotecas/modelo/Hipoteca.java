@@ -1,7 +1,10 @@
 package com.practicas.simulador_hipotecas.modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 
@@ -26,8 +29,9 @@ public class Hipoteca implements Cloneable{
 	private InteresTipo tipoInteres;
 	public List<Amortizacion> amortizaciones = new ArrayList<>();
 	
-	private int edad;
-	private double  ahorros;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date edad;
+	private double ahorros;
 	private double nomina;
 	private double otrosPrestamos;
 	private boolean primeraVivienda;
@@ -52,7 +56,7 @@ public class Hipoteca implements Cloneable{
 	
 	public Hipoteca(double totalIntereses, double capitalInmueble, double capitalAportado, double prestamo,
 			double cuota, int plazo, int plazoRestante, float tasaInteres, InteresTipo tipoInteres,
-			List<Amortizacion> amortizaciones, int edad, double ahorros, double nomina, double otrosPrestamos,
+			List<Amortizacion> amortizaciones, Date edad, double ahorros, double nomina, double otrosPrestamos,
 			boolean primeraVivienda) {
 		super();
 		this.totalIntereses = totalIntereses;
@@ -172,11 +176,11 @@ public class Hipoteca implements Cloneable{
 		super();
 	}
 
-	public int getEdad() {
+	public Date getEdad() {
 		return edad;
 	}
 
-	public void setEdad(int edad) {
+	public void setEdad(Date edad) {
 		this.edad = edad;
 	}
 

@@ -8,7 +8,7 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-	 <link rel="stylesheet" type="text/css" th:href="@{/css/calculadora.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/calculadora.css}">
 </head>
 <body>
 
@@ -16,7 +16,8 @@
 		<h1>Calculadora hipotecas</h1>
 		<a class="dropdown-item" th:href="@{/logout}">Logout</a>
 	</header>
-	<section class=" row px-md-4 d-flex flex-row justify-content-center align-items-center">
+	<section
+		class=" row px-md-4 d-flex flex-row justify-content-center align-items-center">
 		<main class="col-xl-3">
 
 			<form class="form-horizontal align-items-center" method="post"
@@ -26,56 +27,96 @@
 				<div class="row gx-3">
 					<div class="col-lg-12 mb-4">
 						<label class="form-label">Precio inmueble</label> <input
-							type="number" required class="form-control" placeholder="" step="any" min="0"
-							th:field="*{capitalInmueble}" />
+							type="number" required class="form-control" placeholder=""
+							step="any" min="0" th:field="*{capitalInmueble}" />
 					</div>
 				</div>
-				
+
 				<div class="row gx-3">
 					<div class="col-lg-12 mb-4">
-						<label class="form-label">Importe inicial</label> <input step="any" min="0"
-							type="number" required class="form-control"
-							th:field="*{capitalAportado}">
-							<span
-													th:if="${errorImporte}" th:text="${errorImporte}"
-													class="text-danger" id="errorDni">Importe inicial inválido</span>
+						<label class="form-label">Importe inicial</label> <input
+							step="any" min="0" type="number" required class="form-control"
+							th:field="*{capitalAportado}"> <span
+							th:if="${errorImporte}" th:text="${errorImporte}"
+							class="text-danger" id="errorDni">Importe inicial inválido</span>
 					</div>
 				</div>
 
 				<div class="row gx-3">
 					<div class="col-lg-12 mb-4">
 						<label class="form-label">Plazo en años</label> <input
-							type="number"  min="1" required class="form-control" placeholder=""
-							th:field="*{plazo}">
+							type="number" min="1" required class="form-control"
+							placeholder="" th:field="*{plazo}">
 					</div>
 				</div>
-				
+
 				<div class="row gx-3">
 					<div class="col-lg-12 mb-4">
-						<label class="form-label">Interés</label> <input type="number" min="0.1" step="any" max="100"
-							required class="form-control" placeholder=""
-							th:field="*{tasaInteres}">
+						<label class="form-label">Interés</label> <input type="number"
+							min="0.1" step="any" max="100" required class="form-control"
+							placeholder="" th:field="*{tasaInteres}">
 					</div>
 				</div>
 
 				<div class="row gx-3">
-				        <div class="form-group">
-				            <label>Interés</label>
-				            <div th:each="model : ${T(com.practicas.simulador_hipotecas.modelo.InteresTipo).values()}">
-				                <div class="custom-control custom-radio custom-control-inline">
-				                    <input type="radio" th:field="*{tipoInteres}" th:value="${model}" class="custom-control-input">
-				                    <label class="custom-control-label" th:for="${#ids.prev('tipoInteres')}" th:text="${model}">model</label>
-				                </div>
-				            </div>
-				        </div>
+					<div class="form-group">
+						<label>Interés</label>
+						<div
+							th:each="model : ${T(com.practicas.simulador_hipotecas.modelo.InteresTipo).values()}">
+							<div class="custom-control custom-radio custom-control-inline">
+								<input type="radio" th:field="*{tipoInteres}"
+									th:value="${model}" class="custom-control-input"> <label
+									class="custom-control-label"
+									th:for="${#ids.prev('tipoInteres')}" th:text="${model}">model</label>
+							</div>
+						</div>
+					</div>
 				</div>
 
+				<div class="row gx-3">
+					<div class="col-lg-12 mb-4">
+						<label class="form-label">Fecha nacimiento</label> <input
+							type="date" required class="form-control" th:field="*{edad}">
+					</div>
+				</div>
+
+				<div class="row gx-3">
+					<div class="col-lg-12 mb-4">
+						<label class="form-label">Ahorros</label> <input type="number"
+							required class="form-control" placeholder="" step="any" min="0"
+							th:field="*{ahorros}" />
+					</div>
+				</div>
+
+				<div class="row gx-3">
+					<div class="col-lg-12 mb-4">
+						<label class="form-label">Nómina</label> <input type="number"
+							required class="form-control" placeholder="" step="any" min="0"
+							th:field="*{nomina}" />
+					</div>
+				</div>
+
+				<div class="row gx-3">
+					<div class="col-lg-12 mb-4">
+						<label class="form-label">Otros préstamos</label> <input
+							type="number" required class="form-control" placeholder=""
+							step="any" min="0" th:field="*{otrosPrestamos}" />
+					</div>
+				</div>
+
+				<div class="row gx-3">
+					<input type="radio" id="siNuevaVivienda" name="nuevaVivienda" th:field="*{primeraVivienda}"
+						th:value=true> <label for="siNuevaVivienda">Si</label> <input th:field="*{primeraVivienda}"
+						type="radio" id="noNuevaVivienda" name="nuevaVivienda" th:value=false>
+					<label for="noNuevaVivienda">No</label>
+				</div>
 
 				<div class="row mt-3 mb-4">
 					<div class="col-auto">
 						<button class="btn btn-success" type="submit">Calcular
 							hipoteca</button>
-						<input class="btn btn-primary" type="submit" value="Simular hipoteca" th:formaction="@{/pablo}"></input>
+						<input class="btn btn-primary" type="submit"
+							value="Simular hipoteca" th:formaction="@{/pablo}"></input>
 					</div>
 
 				</div>
@@ -83,17 +124,23 @@
 			</form>
 
 		</main>
-		
+
 		<div class="col-xl-2 info" th:if="${hipoteca2}">
-		  <h5>Precio inmueble </h5><span th:text="${#numbers.formatCurrency(hipoteca2.capitalInmueble)}"></span>
-		  <h5>Importe entrada </h5><span th:text="${#numbers.formatCurrency(hipoteca2.capitalAportado)}"></span>
-		  <h5>Prestamo: </h5><span th:text="${#numbers.formatCurrency(hipoteca2.prestamo)}"></span>
-		  <h5>Tipo interés:</h5><span th:text="${hipoteca2.tipoInteres}"></span>
-		  <h5>Tasa interés:</h5><span th:text="${hipoteca2.tasaInteres}"></span><span>%</span>
-		  <h5>Intereses totales:</h5><span th:text="${#numbers.formatCurrency(hipoteca2.totalIntereses)}"></span>
-		  
+			<h5>Precio inmueble</h5>
+			<span th:text="${#numbers.formatCurrency(hipoteca2.capitalInmueble)}"></span>
+			<h5>Importe entrada</h5>
+			<span th:text="${#numbers.formatCurrency(hipoteca2.capitalAportado)}"></span>
+			<h5>Prestamo:</h5>
+			<span th:text="${#numbers.formatCurrency(hipoteca2.prestamo)}"></span>
+			<h5>Tipo interés:</h5>
+			<span th:text="${hipoteca2.tipoInteres}"></span>
+			<h5>Tasa interés:</h5>
+			<span th:text="${hipoteca2.tasaInteres}"></span><span>%</span>
+			<h5>Intereses totales:</h5>
+			<span th:text="${#numbers.formatCurrency(hipoteca2.totalIntereses)}"></span>
+
 		</div>
-		
+
 	</section>
 
 	<section class="row px-md-4">
@@ -116,9 +163,12 @@
 					<td th:text="${amortizacion.numeroCuota}"></td>
 					<td th:text="${#numbers.formatCurrency(amortizacion.cuota)}"></td>
 					<td th:text="${#numbers.formatCurrency(amortizacion.interes)}"></td>
-					<td th:text="${#numbers.formatCurrency(amortizacion.cuotaAmortizacion)}"></td>
-					<td th:text="${#numbers.formatCurrency(amortizacion.totalAmortizado)}"></td>
-					<td th:text="${#numbers.formatCurrency(amortizacion.capitalPorAmortizar)}"></td>
+					<td
+						th:text="${#numbers.formatCurrency(amortizacion.cuotaAmortizacion)}"></td>
+					<td
+						th:text="${#numbers.formatCurrency(amortizacion.totalAmortizado)}"></td>
+					<td
+						th:text="${#numbers.formatCurrency(amortizacion.capitalPorAmortizar)}"></td>
 
 				</tr>
 			</tbody>

@@ -98,4 +98,9 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		
 	}
 
+	@Override
+	public float calcularTasaInteres(Hipoteca hipoteca) {
+		return 0;
+	}
+
 }

@@ -9,6 +9,7 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
  * @author mgomezgarrote
  *
  */
+
 public interface IHipotecaServicio {
 	
 	// Métodos abstractos
@@ -39,5 +40,11 @@ public interface IHipotecaServicio {
 	 * @return float tasaInteres
 	 */
 	public float calcularTasaInteres(float tasaInteres);
+	
+	/**
+	 * @param hipoteca
+	 * @return
+	 */
+	public float calcularTasaInteres(Hipoteca hipoteca);
 
 }

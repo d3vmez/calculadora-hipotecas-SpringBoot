@@ -53,6 +53,9 @@ public class HipotecaControlador {
 			return "index";
 		}
 		
+		float interes = hipotecaFijaServicio.calcularTasaInteres(hipoteca);
+		hipoteca.setTasaInteres(interes);
+		
 		hipoteca.setTotalIntereses(0);
 		
 		if(hipoteca.esTipoFijo()) {
