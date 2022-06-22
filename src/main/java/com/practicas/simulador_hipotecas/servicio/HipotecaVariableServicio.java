@@ -5,19 +5,18 @@ import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
-import com.practicas.simulador_hipotecas.modelo.InteresTipo;
+
 
 @Service
 public class HipotecaVariableServicio implements IHipotecaServicio{
 	
 	private static float EURIBOR = 0.2f/(100*12);
 
-	
 	@Autowired
 	private AmortizacionServicio amortizacionServicio;
 
 	@Override
-	public double calcularCuota(Hipoteca hipoteca) {
+	public void calcularCuota(Hipoteca hipoteca) {
 		
 		double cuota = 0.0;
 		
@@ -31,8 +30,6 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		cuota =  hipoteca.getPrestamo() * (numerador/denominador);
 		hipoteca.setCuota(cuota);
 		
-		return cuota;
-
 	}
 
 	@Override
@@ -40,11 +37,6 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 
 		//Obtener numero de cuotas
 		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
-		//Obtener cuota (interes + amortizacion)
-		double cuota = hipoteca.getCuota();
-		//Obtener importe a devolver
-		double prestamo = hipoteca.getPrestamo();
-		
 		//Obtener el porcentaje del interes a pagar en cada cuota
 		 float tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
 
@@ -56,14 +48,14 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 			// se tiene que recalcular la hipoteca
 			if(acumuladorPlazos == 13 ) {
 				
-				cuota = recalcularHipoteca(hipoteca);
+				recalcularHipoteca(hipoteca);
 				tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
-				prestamo = hipoteca.getPrestamo();
+			
 				acumuladorPlazos = 1;	
 			}
 			acumuladorPlazos++;
 			
-			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo);
+			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(hipoteca, i, tasaInteres);
 			hipoteca.anadirAmortizacion(amortizacion);
 			
 		}
@@ -92,7 +84,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		}
 	}
 	
-	private double recalcularHipoteca(Hipoteca hipoteca) {
+	private void recalcularHipoteca(Hipoteca hipoteca) {
 		
 		//(Se recalcula cada año = cada 12 cuotas)
 		obtenerEURIBOR();
@@ -102,7 +94,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		double capitalPorAmortizar = Amortizacion.totalCapitalPorAmortizar;
 		// Calcular la cuota mensual
 		hipoteca.setPrestamo(capitalPorAmortizar);
-		return calcularCuota(hipoteca);
+		calcularCuota(hipoteca);
 		
 	}
 

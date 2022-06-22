@@ -25,7 +25,6 @@ public class SimulacionServicio {
 
 			hipotecaFijaServicio.calcularCuota(hipotecaFija);
 			hipotecaFijaServicio.calcularAmortizaciones(hipotecaFija);
-			
 			simulacion.setHipotecaFija(hipotecaFija);
 
 		// Generar hipotecas variable
@@ -33,22 +32,16 @@ public class SimulacionServicio {
 			
 			Hipoteca hipotecaVariable = new Hipoteca(hipoteca);
 			
-		
-		
 				hipotecaVariableServicio.calcularCuota(hipotecaVariable);
 				hipotecaVariableServicio.calcularAmortizaciones(hipotecaVariable);
-				
 				simulacion.setHipotecasVariables(hipotecaVariable);
-				//System.out.println(hipotecaVariable.toString());
-		
+			
 		}
 		
-		calcularProbabilidad(simulacion);
-
 	}
 	
 	public void calcularProbabilidad(Simulacion simulacion) {
-				
+			
 		int acumulador = 0;
 		double interesFijo = calcularTotalIntereses(simulacion.getHipotecaFija());
 	

@@ -20,7 +20,7 @@ public interface IHipotecaServicio {
 	 * @param Hipoteca hipoteca, se recibe una instancia de este objeto
 	 * @return double cuota de la mensualidad
 	 */
-	public double calcularCuota(Hipoteca hipoteca);
+	public void calcularCuota(Hipoteca hipoteca);
 	
 	
 	/**

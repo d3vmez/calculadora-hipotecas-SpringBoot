@@ -28,20 +28,20 @@ public class AmortizacionServicio{
 	 * @param double prestamo, importe a devolver
 	 * @return Amortizacion amortizacion
 	 */
-	public Amortizacion crearAmortizacion(int nCuotas, double cuota, float tasaInteres, double prestamo) {
+	public Amortizacion crearAmortizacion(Hipoteca hipoteca, int nCuotas, float tasaInteres) {
 		
 		if(nCuotas == 1) {
-			AmortizacionServicio.capitalPorAmortizar = prestamo;
+			AmortizacionServicio.capitalPorAmortizar = hipoteca.getPrestamo();
 			AmortizacionServicio.totalPorAmortizar = 0.0;
 			//return new Amortizacion(0, 0.0 ,0.0 ,0.0 ,0.0 , prestamo);
 		}
 		
 		//Calcular intereses
 		double intereses = calcularIntereses(tasaInteres, capitalPorAmortizar);
-		actualizarInteresesTotal(intereses);
+		actualizarInteresesTotal(intereses, hipoteca);
 		
 		//Calcular cuota de amortizacion
-		double cuotaAmortizacion = calcularCuotaAmortizacion(cuota, intereses);
+		double cuotaAmortizacion = calcularCuotaAmortizacion(hipoteca.getCuota(), intereses);
 		
 		//Calcular el total amortizado
 		actualizarTotalAmortizado(cuotaAmortizacion);
@@ -49,7 +49,7 @@ public class AmortizacionServicio{
 		//Calcular capital por amortizar
 		actualizarCapitalPorAmortizar(cuotaAmortizacion);
 		
-		return new Amortizacion(nCuotas, cuota, intereses, cuotaAmortizacion, AmortizacionServicio.totalPorAmortizar, AmortizacionServicio.capitalPorAmortizar);
+		return new Amortizacion(nCuotas, hipoteca.getCuota(), intereses, cuotaAmortizacion, AmortizacionServicio.totalPorAmortizar, AmortizacionServicio.capitalPorAmortizar);
 		
 	}
 	
@@ -114,8 +114,8 @@ public class AmortizacionServicio{
 	 * 
 	 * @param double interes
 	 */
-	private void actualizarInteresesTotal(double interes) {
-		Hipoteca.setTotalIntereses(Hipoteca.getTotalIntereses() + interes);
+	private void actualizarInteresesTotal(double interes, Hipoteca hipoteca) {
+		hipoteca.setTotalIntereses(interes);
 	}
 	
 }

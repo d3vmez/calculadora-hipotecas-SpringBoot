@@ -13,7 +13,7 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 	private AmortizacionServicio amortizacionServicio;
 
 	@Override
-	public double calcularCuota(Hipoteca hipoteca) {
+	public void calcularCuota(Hipoteca hipoteca) {
 		
 		double cuota = 0.0;
 		
@@ -30,7 +30,6 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 		
 		hipoteca.setCuota(cuota);
 		
-		return cuota;
 	}
 
 	@Override
@@ -38,16 +37,13 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 		
 		//Obtener numero de cuotas
 		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
-		//Obtener cuota (interes + amortizacion)
-		double cuota = hipoteca.getCuota();
-		//Obtener importe a devolver
-		double prestamo = hipoteca.getPrestamo();
+
 		//Obtener el porcentaje del interes a pagar en cada cuota
 		float tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
 		
 		for (int i = 1; i <= nCuotas; i++) {
 			
-			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(i, cuota, tasaInteres, prestamo);
+			Amortizacion amortizacion = amortizacionServicio.crearAmortizacion(hipoteca, i, tasaInteres);
 			hipoteca.anadirAmortizacion(amortizacion);
 		
 		}

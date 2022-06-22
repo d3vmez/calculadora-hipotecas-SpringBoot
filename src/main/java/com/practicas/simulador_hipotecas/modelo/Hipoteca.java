@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Hipoteca implements Cloneable{
 	
-	private static double totalIntereses;
+	private double totalIntereses;
 	public static final int NMENSUALIDADES = 12;
 
 	// Atributos
@@ -123,12 +123,12 @@ public class Hipoteca implements Cloneable{
 		this.amortizaciones = amortizaciones;
 	}
 	
-	public static double getTotalIntereses() {
+	public double getTotalIntereses() {
 		return totalIntereses;
 	}
 
-	public static void setTotalIntereses(double totalIntereses) {
-		Hipoteca.totalIntereses = totalIntereses;
+	public void setTotalIntereses(double totalIntereses) {
+		this.totalIntereses += totalIntereses;
 	}
 	
 	public int getPlazoRestante() {

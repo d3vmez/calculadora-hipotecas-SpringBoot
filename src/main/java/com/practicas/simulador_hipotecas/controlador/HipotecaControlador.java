@@ -75,15 +75,19 @@ public class HipotecaControlador {
 	@PostMapping("/pablo")
 	public String prueba(@ModelAttribute("hipoteca") Hipoteca hipoteca) {
 
-		
 		Simulacion simulacion = new Simulacion();
 		simulacionServicio.generarHipotecas(hipoteca, simulacion);
+		simulacionServicio.calcularProbabilidad(simulacion);
 
-		//simulacionServicio.calcularProbabilidad(simulacion);
-		
-		
-		
 		return "index";
+	}
+	
+	@GetMapping("/prueba2")
+	public String prueba2() {
+		
+		
+		return "prueba2";
+		
 	}
 
 }
