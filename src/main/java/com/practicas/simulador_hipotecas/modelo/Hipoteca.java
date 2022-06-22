@@ -25,12 +25,14 @@ public class Hipoteca implements Cloneable{
 	private float tasaInteres;
 	private InteresTipo tipoInteres;
 	public List<Amortizacion> amortizaciones = new ArrayList<>();
+	
+	private int edad;
+	private double  ahorros;
+	private double nomina;
+	private double otrosPrestamos;
+	private boolean primeraVivienda;
 
 	// Constructores
-
-	public Hipoteca() {
-		super();
-	}
 
 	public Hipoteca(double capitalInmueble, double capitalAportado, double prestamo, double cuota, int plazo,
 			float tasaInteres, InteresTipo tipoInteres, List<Amortizacion> amortizaciones, int plazoRestante) {
@@ -46,6 +48,32 @@ public class Hipoteca implements Cloneable{
 
 	}
 	
+	
+	
+	public Hipoteca(double totalIntereses, double capitalInmueble, double capitalAportado, double prestamo,
+			double cuota, int plazo, int plazoRestante, float tasaInteres, InteresTipo tipoInteres,
+			List<Amortizacion> amortizaciones, int edad, double ahorros, double nomina, double otrosPrestamos,
+			boolean primeraVivienda) {
+		super();
+		this.totalIntereses = totalIntereses;
+		this.capitalInmueble = capitalInmueble;
+		this.capitalAportado = capitalAportado;
+		this.prestamo = prestamo;
+		this.cuota = cuota;
+		this.plazo = plazo;
+		this.plazoRestante = plazoRestante;
+		this.tasaInteres = tasaInteres;
+		this.tipoInteres = tipoInteres;
+		this.amortizaciones = amortizaciones;
+		this.edad = edad;
+		this.ahorros = ahorros;
+		this.nomina = nomina;
+		this.otrosPrestamos = otrosPrestamos;
+		this.primeraVivienda = primeraVivienda;
+	}
+
+
+
 	public Hipoteca(Hipoteca hipoteca) {
 		this.capitalInmueble = hipoteca.getCapitalInmueble();
 		this.capitalAportado = hipoteca.getCapitalAportado();
@@ -139,6 +167,51 @@ public class Hipoteca implements Cloneable{
 		this.plazoRestante = plazoRestante;
 	}
 	
+
+	public Hipoteca() {
+		super();
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
+
+	public double getAhorros() {
+		return ahorros;
+	}
+
+	public void setAhorros(double ahorros) {
+		this.ahorros = ahorros;
+	}
+
+	public double getNomina() {
+		return nomina;
+	}
+
+	public void setNomina(double nomina) {
+		this.nomina = nomina;
+	}
+
+	public double getOtrosPrestamos() {
+		return otrosPrestamos;
+	}
+
+	public void setOtrosPrestamos(double otrosPrestamos) {
+		this.otrosPrestamos = otrosPrestamos;
+	}
+
+	public boolean isPrimeraVivienda() {
+		return primeraVivienda;
+	}
+
+	public void setPrimeraVivienda(boolean primeraVivienda) {
+		this.primeraVivienda = primeraVivienda;
+	}
+	
 	// Métodos
 
 	/**
@@ -202,13 +275,19 @@ public class Hipoteca implements Cloneable{
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
+
+
 	@Override
 	public String toString() {
-		return "Hipoteca [capitalInmueble=" + capitalInmueble + ", capitalAportado=" + capitalAportado + ", prestamo="
-				+ prestamo + ", cuota=" + cuota + ", plazo=" + plazo + ", interes=" + tasaInteres + ", tipoInteres="
-				+ tipoInteres + ", amortizaciones=" + amortizaciones + "]";
+		return "Hipoteca [totalIntereses=" + totalIntereses + ", capitalInmueble=" + capitalInmueble
+				+ ", capitalAportado=" + capitalAportado + ", prestamo=" + prestamo + ", cuota=" + cuota + ", plazo="
+				+ plazo + ", plazoRestante=" + plazoRestante + ", tasaInteres=" + tasaInteres + ", tipoInteres="
+				+ tipoInteres + ", amortizaciones=" + amortizaciones + ", edad=" + edad + ", ahorros=" + ahorros
+				+ ", nomina=" + nomina + ", otrosPrestamos=" + otrosPrestamos + ", primeraVivienda=" + primeraVivienda
+				+ "]";
 	}
+	
+
 
 
 
