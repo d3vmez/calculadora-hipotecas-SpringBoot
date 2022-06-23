@@ -10,9 +10,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 import com.practicas.simulador_hipotecas.modelo.Simulacion;
-import com.practicas.simulador_hipotecas.servicio.HipotecaFijaServicio;
-import com.practicas.simulador_hipotecas.servicio.HipotecaVariableServicio;
-import com.practicas.simulador_hipotecas.servicio.SimulacionServicio;
+import com.practicas.simulador_hipotecas.servicio.impl.HipotecaFijaServicio;
+import com.practicas.simulador_hipotecas.servicio.impl.HipotecaVariableServicio;
+import com.practicas.simulador_hipotecas.servicio.impl.SimulacionServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
 
 @Controller

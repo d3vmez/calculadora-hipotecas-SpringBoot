@@ -52,8 +52,6 @@ public class Hipoteca implements Cloneable{
 
 	}
 	
-	
-	
 	public Hipoteca(double totalIntereses, double capitalInmueble, double capitalAportado, double prestamo,
 			double cuota, int plazo, int plazoRestante, float tasaInteres, InteresTipo tipoInteres,
 			List<Amortizacion> amortizaciones, Date edad, double ahorros, double nomina, double otrosPrestamos,

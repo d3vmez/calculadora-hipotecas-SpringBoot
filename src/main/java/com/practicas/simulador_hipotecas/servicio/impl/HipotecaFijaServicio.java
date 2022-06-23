@@ -1,10 +1,11 @@
-package com.practicas.simulador_hipotecas.servicio;
+package com.practicas.simulador_hipotecas.servicio.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
+import com.practicas.simulador_hipotecas.servicio.IHipotecaServicio;
 
 @Service
 public class HipotecaFijaServicio implements IHipotecaServicio{
@@ -13,6 +14,9 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 	
 	@Autowired
 	private AmortizacionServicio amortizacionServicio;
+	
+	@Autowired
+	private PonderacionInteresServicio ponderacionInteresServicio;
 
 	@Override
 	public void calcularCuota(Hipoteca hipoteca) {
@@ -59,45 +63,8 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 	@Override
 	public float calcularTasaInteres(Hipoteca hipoteca) {
 		
-		float acumulador = 0.0f;
-		
-		double ahorros = hipoteca.getAhorros();
-		double nomina = hipoteca.getNomina();
-		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
-		double otrosPrestamos = hipoteca.getOtrosPrestamos();
-		boolean primeraVivienda = hipoteca.isPrimeraVivienda();
-		
-		if(ahorros<10000) {
-			acumulador+=5.0f;
-		}
-		
-		if(nomina<=1000) {
-			acumulador+=40.0f;
-		}else if(nomina>1000 && nomina<2000) {
-			acumulador+=20.0f;
-		}else if(nomina>=2000) {
-			acumulador+=5.0f;
-		}
-		
-		if(nCuotas<=24) {
-			acumulador+=10.0f;
-		}else if(nCuotas>24 && nCuotas<48) {
-			acumulador+=20.0f;
-		}else if(nCuotas>=48) {
-			acumulador+=30.0f;
-		}
-		
-		if(otrosPrestamos>=10000 && otrosPrestamos<20000) {
-			acumulador+=10.0f;
-		}else if(otrosPrestamos>=20000) {
-			acumulador+=20.0f;
-		}
-		
-		if(primeraVivienda) {
-			acumulador+=5.0f;
-		}
-		System.out.println(INTERES_MINIMO+(INTERES_MINIMO*(acumulador/100)));
-		return INTERES_MINIMO+(INTERES_MINIMO*(acumulador/100));
+		float tasaInteres =  ponderacionInteresServicio.calcularInteresTotal(hipoteca);
+		return tasaInteres;
 	}
 	
 }
