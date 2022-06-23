@@ -1,4 +1,4 @@
-package com.practicas.simulador_hipotecas.servicio;
+package com.practicas.simulador_hipotecas.servicio.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

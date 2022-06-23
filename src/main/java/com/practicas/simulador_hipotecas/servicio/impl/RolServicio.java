@@ -1,4 +1,4 @@
-package com.practicas.simulador_hipotecas.servicio;
+package com.practicas.simulador_hipotecas.servicio.impl;
 
 import java.util.List;
 import java.util.Optional;

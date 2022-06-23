@@ -1,4 +1,4 @@
-package com.practicas.simulador_hipotecas.servicio;
+package com.practicas.simulador_hipotecas.servicio.impl;
 
 import java.sql.Date;
 import java.util.HashSet;

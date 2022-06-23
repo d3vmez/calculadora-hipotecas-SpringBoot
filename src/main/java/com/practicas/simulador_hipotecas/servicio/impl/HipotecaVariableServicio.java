@@ -1,10 +1,11 @@
-package com.practicas.simulador_hipotecas.servicio;
+package com.practicas.simulador_hipotecas.servicio.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
+import com.practicas.simulador_hipotecas.servicio.IHipotecaServicio;
 
 
 @Service
