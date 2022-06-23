@@ -23,8 +23,7 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 		int nAnos = hipoteca.getPlazo();
 		int nCuotas = hipoteca.calcularNCuotas(nAnos);
 		double tasaInteres = calcularTasaInteres(hipoteca.getTasaInteres());
-		
-		
+			
 		double numerador = tasaInteres * Math.pow(1 + tasaInteres, nCuotas);
 		double denominador = Math.pow(1 + tasaInteres, nCuotas) - 1;
 		

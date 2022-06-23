@@ -55,10 +55,12 @@ public class SimulacionServicio {
 				
 		}
 		
-		float porcentaje = (acumulador / (float)NSIMULACIONES) * 100;
+		//Porcentaje de que el interés fijo sea más caro que el variable
+		float porcentaje = (acumulador / (float)NSIMULACIONES) * 100;	
+		simulacion.setPorcentaje(porcentaje);
 		
-		System.out.println("Acumulador = " + acumulador);
-		System.out.println("Porcentaje = " + porcentaje + "%");
+//		System.out.println("Acumulador = " + acumulador);
+//		System.out.println("Porcentaje = " + porcentaje + "%");
 	}
 	
 	private double calcularTotalIntereses(Hipoteca hipoteca) {

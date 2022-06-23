@@ -98,8 +98,6 @@
 					<div class="col-auto">
 						<button class="btn btn-success" type="submit">Calcular
 							hipoteca</button>
-						<input class="btn btn-primary" type="submit" value="Simular hipoteca"
-							th:formaction="@{/pablo}"></input>
 					</div>
 
 				</div>
@@ -109,6 +107,8 @@
 		</main>
 
 		<div class="col-xl-2 info" th:if="${hipoteca2}">
+			<div class="card text-white bg-success mb-3" th:if="${infoPorcentaje}" th:text="${infoPorcentaje}"></div>
+			<br>
 			<h5>Precio inmueble</h5>
 			<span th:text="${#numbers.formatCurrency(hipoteca2.capitalInmueble)}"></span>
 			<h5>Importe entrada</h5>
@@ -121,7 +121,6 @@
 			<span th:text="${hipoteca2.tasaInteres}"></span><span>%</span>
 			<h5>Intereses totales:</h5>
 			<span th:text="${#numbers.formatCurrency(hipoteca2.totalIntereses)}"></span>
-
 		</div>
 
 	</section>

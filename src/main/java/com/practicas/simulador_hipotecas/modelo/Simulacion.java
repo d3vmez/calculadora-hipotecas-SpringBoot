@@ -9,6 +9,16 @@ public class Simulacion {
 	private Hipoteca hipotecaFija;
 	private int nSimulaciones;
 	
+	private float porcentaje;
+	
+	public float getPorcentaje() {
+		return porcentaje;
+	}
+
+	public void setPorcentaje(float porcentaje) {
+		this.porcentaje = porcentaje;
+	}
+
 	public Simulacion() {
 		super();
 		
