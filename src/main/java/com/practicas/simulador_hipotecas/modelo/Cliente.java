@@ -150,7 +150,7 @@ public class Cliente {
 	public Cliente() {
 		super();
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", email=" + email + ", clave=" + clave + ", nombre=" + nombre + ", apellido1="
