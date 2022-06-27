@@ -1,10 +1,11 @@
-package com.practicas.simulador_hipotecas.servicio;
+package com.practicas.simulador_hipotecas.servicio.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
 import com.practicas.simulador_hipotecas.modelo.Hipoteca;
+import com.practicas.simulador_hipotecas.servicio.IHipotecaServicio;
 
 
 @Service
@@ -34,6 +35,9 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 
 	@Override
 	public void calcularAmortizaciones(Hipoteca hipoteca) {
+		
+		//Calcular cuota de la hipoteca
+		calcularCuota(hipoteca);
 
 		//Obtener numero de cuotas
 		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
@@ -99,8 +103,9 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 	}
 
 	@Override
-	public float calcularTasaInteres(Hipoteca hipoteca) {
-		return 0;
+	public void calcularTasaInteres(Hipoteca hipoteca) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
