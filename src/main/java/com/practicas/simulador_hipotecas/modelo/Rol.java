@@ -48,8 +48,8 @@ public class Rol {
 		this.rol = rol;
 	}
 
-	@Override
-	public String toString() {
-		return "Rol [id=" + id + ", rol=" + rol + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Rol [id=" + id + ", rol=" + rol + "]";
+//	}
 }
