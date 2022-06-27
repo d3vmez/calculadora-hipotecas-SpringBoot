@@ -12,13 +12,13 @@ import org.junit.jupiter.api.Test;
 
 class HipotecaTest {
 
-	Hipoteca hipoteca, hipoteca2;
+	Hipoteca hipoteca2;
 	Amortizacion amortizacion;
 	List<Amortizacion> amortizaciones = new ArrayList<>();
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		hipoteca = new Hipoteca(120000.0,40000.0,80000.0,1000.0,1,1.0f,InteresTipo.fijo, null,1);
+		
 		hipoteca2 = new Hipoteca(25000.0,200000.0,40000.0,80000.0,1000.0,1,2,1.0f,InteresTipo.fijo, null, new Date(),15000.0,2500.0,1000.0,true);
 	}
 
@@ -28,22 +28,22 @@ class HipotecaTest {
 
 	@Test
 	void testHipotecaDoubleDoubleDoubleDoubleIntFloatInteresTipoListOfAmortizacionInt() {
-		assertAll("Constructor hipoteca 1",
-				()-> assertEquals(120000.0, hipoteca.getCapitalInmueble()),
-				()-> assertEquals(40000.0, hipoteca.getCapitalAportado()),
-				()-> assertEquals(80000.0, hipoteca.getPrestamo()),
-				()-> assertEquals(1000.0, hipoteca.getCuota()),
-				()-> assertEquals(1, hipoteca.getPlazo()),
-				()-> assertEquals(1.0f, hipoteca.getTasaInteres()),
-				()-> assertEquals(InteresTipo.fijo, hipoteca.getTipoInteres()),
-				()-> assertEquals(amortizaciones, hipoteca.getAmortizaciones()),
-				()-> assertEquals(1, hipoteca.getPlazoRestante())
+		assertAll("Constructor hipoteca2 1",
+				()-> assertEquals(120000.0, hipoteca2.getCapitalInmueble()),
+				()-> assertEquals(40000.0, hipoteca2.getCapitalAportado()),
+				()-> assertEquals(80000.0, hipoteca2.getPrestamo()),
+				()-> assertEquals(1000.0, hipoteca2.getCuota()),
+				()-> assertEquals(1, hipoteca2.getPlazo()),
+				()-> assertEquals(1.0f, hipoteca2.getTasaInteres()),
+				()-> assertEquals(InteresTipo.fijo, hipoteca2.getTipoInteres()),
+				()-> assertEquals(amortizaciones, hipoteca2.getAmortizaciones()),
+				()-> assertEquals(1, hipoteca2.getPlazoRestante())
 				);
 	}
 
 	@Test
 	void testHipotecaDoubleDoubleDoubleDoubleDoubleIntIntFloatInteresTipoListOfAmortizacionDateDoubleDoubleDoubleBoolean() {
-		assertAll("Constructor hipoteca 2",
+		assertAll("Constructor hipoteca2 2",
 				()-> assertEquals(25000.0, hipoteca2.getTotalIntereses()),
 				()-> assertEquals(200000.0, hipoteca2.getCapitalInmueble()),
 				()-> assertEquals(40000.0, hipoteca2.getCapitalAportado()),
@@ -64,40 +64,40 @@ class HipotecaTest {
 
 	@Test
 	void testHipotecaHipoteca() {
-		assertNotEquals(null, hipoteca);
+		assertNotEquals(null, hipoteca2);
 	}
 
 	@Test
 	void testGetCapitalInmueble() {
-		assertEquals(120000.0, hipoteca.getCapitalInmueble());
+		assertEquals(120000.0, hipoteca2.getCapitalInmueble());
 	}
 
 	@Test
 	void testSetCapitalInmueble() {
-		hipoteca.setCapitalInmueble(1000.0);
-		assertEquals(1000.0, hipoteca.getCapitalInmueble());
+		hipoteca2.setCapitalInmueble(1000.0);
+		assertEquals(1000.0, hipoteca2.getCapitalInmueble());
 	}
 
 	@Test
 	void testGetCapitalAportado() {
-		assertEquals(40000.0, hipoteca.getCapitalAportado());
+		assertEquals(40000.0, hipoteca2.getCapitalAportado());
 	}
 
 	@Test
 	void testSetCapitalAportado() {
-		hipoteca.setCapitalAportado(1000.0);
-		assertEquals(1000.0, hipoteca.getCapitalAportado());
+		hipoteca2.setCapitalAportado(1000.0);
+		assertEquals(1000.0, hipoteca2.getCapitalAportado());
 	}
 
 	@Test
 	void testGetPrestamo() {
-		assertEquals(80000.0, hipoteca.getPrestamo());
+		assertEquals(80000.0, hipoteca2.getPrestamo());
 	}
 
 	@Test
 	void testSetPrestamo() {
-		hipoteca.setPrestamo(1000.0);
-		assertEquals(1000.0, hipoteca.getPrestamo());
+		hipoteca2.setPrestamo(1000.0);
+		assertEquals(1000.0, hipoteca2.getPrestamo());
 	}
 
 	@Test
@@ -107,52 +107,52 @@ class HipotecaTest {
 
 	@Test
 	void testSetCuota() {
-		hipoteca.setCuota(10000.0);
-		assertEquals(10000.0, hipoteca.getCuota());
+		hipoteca2.setCuota(10000.0);
+		assertEquals(10000.0, hipoteca2.getCuota());
 	}
 
 	@Test
 	void testGetPlazo() {
-		assertEquals(1, hipoteca.getPlazo());
+		assertEquals(1, hipoteca2.getPlazo());
 	}
 
 	@Test
 	void testSetPlazo() {
-		hipoteca.setPlazo(5);
-		assertEquals(5, hipoteca.getPlazo());
+		hipoteca2.setPlazo(5);
+		assertEquals(5, hipoteca2.getPlazo());
 	}
 
 	@Test
 	void testGetTasaInteres() {
-		assertEquals(1.0f, hipoteca.getTasaInteres());
+		assertEquals(1.0f, hipoteca2.getTasaInteres());
 	}
 
 	@Test
 	void testSetTasaInteres() {
-		hipoteca.setTasaInteres(5.0f);
-		assertEquals(5.0f, hipoteca.getTasaInteres());
+		hipoteca2.setTasaInteres(5.0f);
+		assertEquals(5.0f, hipoteca2.getTasaInteres());
 	}
 
 	@Test
 	void testGetTipoInteres() {
-		assertEquals(InteresTipo.fijo, hipoteca.getTipoInteres());
+		assertEquals(InteresTipo.fijo, hipoteca2.getTipoInteres());
 	}
 
 	@Test
 	void testSetTipoInteres() {
-		hipoteca.setTipoInteres(InteresTipo.variable);
-		assertEquals(InteresTipo.variable, hipoteca.getTipoInteres());
+		hipoteca2.setTipoInteres(InteresTipo.variable);
+		assertEquals(InteresTipo.variable, hipoteca2.getTipoInteres());
 	}
 
 	@Test
 	void testGetAmortizaciones() {
-		assertEquals(amortizaciones, hipoteca.getAmortizaciones());
+		assertEquals(amortizaciones, hipoteca2.getAmortizaciones());
 	}
 
 	@Test
 	void testSetAmortizaciones() {
-		hipoteca.setAmortizaciones(null);
-		assertEquals(null, hipoteca.getAmortizaciones());
+		hipoteca2.setAmortizaciones(null);
+		assertEquals(null, hipoteca2.getAmortizaciones());
 	}
 
 	@Test
@@ -179,7 +179,7 @@ class HipotecaTest {
 
 	@Test
 	void testHipoteca() {
-		assertNotEquals(null, hipoteca);	
+		assertNotEquals(null, hipoteca2);	
 	}
 
 	@Test
@@ -244,7 +244,7 @@ class HipotecaTest {
 
 	@Test
 	void testEsTipoFijo() {
-		assertEquals(InteresTipo.fijo, hipoteca.getTipoInteres());
+		assertEquals(InteresTipo.fijo, hipoteca2.getTipoInteres());
 	}
 
 	@Test
@@ -254,7 +254,7 @@ class HipotecaTest {
 
 	@Test
 	void testCalcularNCuotas() {
-		assertEquals(12, hipoteca.getPlazo()*12);
+		assertEquals(12, hipoteca2.getPlazo()*12);
 	}
 
 	@Test

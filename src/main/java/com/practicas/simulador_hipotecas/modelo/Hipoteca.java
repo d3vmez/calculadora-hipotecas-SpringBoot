@@ -43,7 +43,7 @@ public class Hipoteca{
 	 * 
 	 */
 	public Hipoteca() {
-		super();
+
 	}
 
 	/**
@@ -285,15 +285,15 @@ public class Hipoteca{
 		
 	}
 	
-	@Override
-	public String toString() {
-		return "Hipoteca [totalIntereses=" + totalIntereses + ", capitalInmueble=" + capitalInmueble
-				+ ", capitalAportado=" + capitalAportado + ", prestamo=" + prestamo + ", cuota=" + cuota + ", plazo="
-				+ plazo + ", plazoRestante=" + plazoRestante + ", tasaInteres=" + tasaInteres + ", tipoInteres="
-				+ tipoInteres + ", amortizaciones=" + amortizaciones + ", edad=" + edad + ", ahorros=" + ahorros
-				+ ", nomina=" + nomina + ", otrosPrestamos=" + otrosPrestamos + ", primeraVivienda=" + primeraVivienda
-				+ "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Hipoteca [totalIntereses=" + totalIntereses + ", capitalInmueble=" + capitalInmueble
+//				+ ", capitalAportado=" + capitalAportado + ", prestamo=" + prestamo + ", cuota=" + cuota + ", plazo="
+//				+ plazo + ", plazoRestante=" + plazoRestante + ", tasaInteres=" + tasaInteres + ", tipoInteres="
+//				+ tipoInteres + ", amortizaciones=" + amortizaciones + ", edad=" + edad + ", ahorros=" + ahorros
+//				+ ", nomina=" + nomina + ", otrosPrestamos=" + otrosPrestamos + ", primeraVivienda=" + primeraVivienda
+//				+ "]";
+//	}
 	
 
 
