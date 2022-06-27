@@ -14,6 +14,7 @@ import com.practicas.simulador_hipotecas.servicio.impl.HipotecaFijaServicio;
 import com.practicas.simulador_hipotecas.servicio.impl.HipotecaVariableServicio;
 import com.practicas.simulador_hipotecas.servicio.impl.SimulacionServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
+import com.practicas.simulador_hipotecas.utilidades.ValidacionUtil;
 
 @Controller
 public class HipotecaControlador {
@@ -46,44 +47,68 @@ public class HipotecaControlador {
 		return "index";
 	}
 
-	@SuppressWarnings("static-access")
 	@PostMapping(RutaUtil.RUTA_HIPOTECA_SUBMIT)
 	public String mortgageSubmit(@ModelAttribute("hipoteca") Hipoteca hipoteca, Model model,
 			RedirectAttributes redirectAttributes) {
 
-		// validacion el importe inicial no puede ser inferior al 10% del precio del
-		// inmueble ni inferior al total del importe abonado al inicio
-		if (hipoteca.getCapitalInmueble() * 0.1 > hipoteca.getCapitalAportado()
-				|| hipoteca.getCapitalInmueble() < hipoteca.getCapitalAportado()) {
-			model.addAttribute("errorImporte",
-					"Este importe tiene que ser superior al 10% del precio del inmueble y no mayor");
-			return "index";
-		}
+		// Validaciones
+		/////////////////////////////////////////////////////////////
+		
+		// Comprobación del importe inicial aportado cumple las siguientes 
+		// dos condiciones:
+		// El importe incial tiene que tener un valor superior a importe * porcentaje
+		// El importe incial no puede ser superior al capital del inmueble
+		
+		if(!ValidacionUtil.esImporteInicialValido(model, hipoteca.getCapitalInmueble(), hipoteca.getCapitalAportado())) return "index";
+		
+		// Comprobación de que la edad del solicitante de la hipoteca
+		// se ecuentre en el rango [18 - 65]
+		// Si no se cumple la condición se redirige a la vista con un
+		// mensaje de error
+		
+		if(!ValidacionUtil.esEdadCorrecta(model, hipoteca.getEdad())) return "index";
+		
+		// Comprobación de que la edad del solicitante de la hipoteca
+		// más la duración de la hipoteca no supere los 65 años
+		// Si no se cumple la condición se redirige a la vista con un
+		// mensaje de error
+		
+		if(!ValidacionUtil.esEdadCorrectaConCuota(model, hipoteca.getEdad(), hipoteca.getPlazo())) return "index";
+		
+		/////////////////////////////////////////////////////////////
+		
+		hipotecaFijaServicio.calcularTasaInteres(hipoteca);
 
-		float interes = hipotecaFijaServicio.calcularTasaInteres(hipoteca);
-		hipoteca.setTasaInteres(interes);
-
-		hipoteca.setTotalIntereses(0);
-
+		// Depende si la hipoteca es fija o variable los cálculos varían
 		if (hipoteca.esTipoFijo()) {
-			hipotecaFijaServicio.calcularCuota(hipoteca);
+			// Se calcula la cuota mensual de la hipoteca
+			// Se calculan las amortizaciones de cada uno de los meses
 			hipotecaFijaServicio.calcularAmortizaciones(hipoteca);
 		} else {
-			hipotecaVariableServicio.calcularCuota(hipoteca);
+			
+			// Se calcula la cuota mensual de la hipoteca,
+			// aunque varía año a año
+			// Se calculan las amortizaciones de cada uno de los meses
 			hipotecaVariableServicio.calcularAmortizaciones(hipoteca);
-
 		}
 
-		redirectAttributes.addFlashAttribute("amortizaciones2", hipoteca.getAmortizaciones());
-		redirectAttributes.addFlashAttribute("hipoteca", hipoteca);
-
-		//Simulacion al darle al boton de calcular
+		// Se realiza la simulación para comprobar si la contratación
+		// de una hipoteca variable es más beneficiosa que una fija
+		
+		// Se crea una instancia de Simulacion para almecenar tanto
+		// la hipoteca hija como una lista de hipotecas variables
 		Simulacion simulacion = new Simulacion();
 		simulacionServicio.generarHipotecas(hipoteca, simulacion);
 		simulacionServicio.calcularProbabilidad(simulacion);
+		
+		//Envio de datos al endpoint RUTA_INICIO
+		// TODO seguir depurando aqui
 		redirectAttributes.addFlashAttribute("porcentaje", simulacion.getPorcentaje());
+		redirectAttributes.addFlashAttribute("amortizaciones2", hipoteca.getAmortizaciones());
+		redirectAttributes.addFlashAttribute("hipoteca", hipoteca);
 
 		return "redirect:" + RutaUtil.RUTA_INICIO;
 	}
-
+	
+	
 }

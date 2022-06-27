@@ -9,9 +9,7 @@ import com.practicas.simulador_hipotecas.servicio.IHipotecaServicio;
 
 @Service
 public class HipotecaFijaServicio implements IHipotecaServicio{
-	
-	private static final float INTERES_MINIMO = 2.0f;
-	
+		
 	@Autowired
 	private AmortizacionServicio amortizacionServicio;
 	
@@ -40,6 +38,9 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 	@Override
 	public void calcularAmortizaciones(Hipoteca hipoteca) {
 		
+		//Calcular cuota mensual de la hipoteca
+		calcularCuota(hipoteca);
+		
 		//Obtener numero de cuotas
 		int nCuotas = hipoteca.calcularNCuotas(hipoteca.getPlazo());
 
@@ -61,10 +62,10 @@ public class HipotecaFijaServicio implements IHipotecaServicio{
 	}
 
 	@Override
-	public float calcularTasaInteres(Hipoteca hipoteca) {
+	public void calcularTasaInteres(Hipoteca hipoteca) {
 		
 		float tasaInteres =  ponderacionInteresServicio.calcularInteresTotal(hipoteca);
-		return tasaInteres;
+		hipoteca.setTasaInteres(tasaInteres);
 	}
 	
 }

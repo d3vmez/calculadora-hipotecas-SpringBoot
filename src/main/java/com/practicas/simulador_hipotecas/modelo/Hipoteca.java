@@ -13,14 +13,14 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Marcos
  *
  */
-public class Hipoteca implements Cloneable{
+public class Hipoteca{
 	
-	private double totalIntereses;
 	public static final int NMENSUALIDADES = 12;
 
 	// Atributos
 	private double capitalInmueble;
 	private double capitalAportado;
+	private double totalIntereses;
 	private double prestamo;
 	private double cuota;
 	private int plazo;
@@ -28,7 +28,6 @@ public class Hipoteca implements Cloneable{
 	private float tasaInteres;
 	private InteresTipo tipoInteres;
 	public List<Amortizacion> amortizaciones = new ArrayList<>();
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date edad;
 	private double ahorros;
@@ -37,21 +36,36 @@ public class Hipoteca implements Cloneable{
 	private boolean primeraVivienda;
 
 	// Constructores
-
-	public Hipoteca(double capitalInmueble, double capitalAportado, double prestamo, double cuota, int plazo,
-			float tasaInteres, InteresTipo tipoInteres, List<Amortizacion> amortizaciones, int plazoRestante) {
-		super();
-		this.capitalInmueble = capitalInmueble;
-		this.capitalAportado = capitalAportado;
-		this.prestamo = prestamo;
-		this.cuota = cuota;
-		this.plazo = plazo;
-		this.plazoRestante = plazoRestante;
-		this.tasaInteres = tasaInteres;
-		this.tipoInteres = tipoInteres;
-
-	}
 	
+	/**
+	 * 
+	 * Constructor por defecto
+	 * 
+	 */
+	public Hipoteca() {
+		super();
+	}
+
+	/**
+	 * 
+	 * Constructor con parámetros
+	 * 
+	 * @param double totalIntereses
+	 * @param double capitalInmueble
+	 * @param double capitalAportado
+	 * @param double prestamo
+	 * @param double cuota
+	 * @param int plazo
+	 * @param int plazoRestante
+	 * @param float tasaInteres
+	 * @param InteresTipo tipoInteres
+	 * @param List<Amortizacion> amortizaciones
+	 * @param edad 
+	 * @param double ahorros
+	 * @param double nomina
+	 * @param double otrosPrestamos
+	 * @param boolean primeraVivienda
+	 */
 	public Hipoteca(double totalIntereses, double capitalInmueble, double capitalAportado, double prestamo,
 			double cuota, int plazo, int plazoRestante, float tasaInteres, InteresTipo tipoInteres,
 			List<Amortizacion> amortizaciones, Date edad, double ahorros, double nomina, double otrosPrestamos,
@@ -74,8 +88,12 @@ public class Hipoteca implements Cloneable{
 		this.primeraVivienda = primeraVivienda;
 	}
 
-
-
+	/**
+	 * 
+	 * Constructor que permite clonar una instancia de Hipoteca
+	 * 
+	 * @param Hipoteca hipoteca, objeto que se quiere clonar
+	 */
 	public Hipoteca(Hipoteca hipoteca) {
 		this.capitalInmueble = hipoteca.getCapitalInmueble();
 		this.capitalAportado = hipoteca.getCapitalAportado();
@@ -169,11 +187,6 @@ public class Hipoteca implements Cloneable{
 		this.plazoRestante = plazoRestante;
 	}
 	
-
-	public Hipoteca() {
-		super();
-	}
-
 	public Date getEdad() {
 		return edad;
 	}
@@ -260,7 +273,6 @@ public class Hipoteca implements Cloneable{
 		
 	}
 	
-	
 	/**
 	 * 
 	 * Método para recalcular los plazos restantes de la hipoteca
@@ -273,12 +285,6 @@ public class Hipoteca implements Cloneable{
 		
 	}
 	
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
-
-
 	@Override
 	public String toString() {
 		return "Hipoteca [totalIntereses=" + totalIntereses + ", capitalInmueble=" + capitalInmueble

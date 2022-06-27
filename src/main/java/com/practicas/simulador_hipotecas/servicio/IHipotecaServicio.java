@@ -45,6 +45,6 @@ public interface IHipotecaServicio {
 	 * @param hipoteca
 	 * @return
 	 */
-	public float calcularTasaInteres(Hipoteca hipoteca);
+	public void calcularTasaInteres(Hipoteca hipoteca);
 
 }
