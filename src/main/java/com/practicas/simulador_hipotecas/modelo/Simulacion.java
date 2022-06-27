@@ -20,12 +20,10 @@ public class Simulacion {
 	}
 
 	public Simulacion() {
-		super();
 		
 	}
 
 	public Simulacion(List<Hipoteca> hipotecasVariables, Hipoteca hipotecaFija, int nSimulaciones) {
-		super();
 		this.hipotecasVariables = hipotecasVariables;
 		this.hipotecaFija = hipotecaFija;
 		this.nSimulaciones = nSimulaciones;
@@ -55,10 +53,10 @@ public class Simulacion {
 		this.nSimulaciones = nSimulaciones;
 	}
 
-	@Override
-	public String toString() {
-		return "Simulacion [hipotecasVariables=" + hipotecasVariables + ", hipotecaFija=" + hipotecaFija
-				+ ", nSimulaciones=" + nSimulaciones + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Simulacion [hipotecasVariables=" + hipotecasVariables + ", hipotecaFija=" + hipotecaFija
+//				+ ", nSimulaciones=" + nSimulaciones + "]";
+//	}
 	
 }

@@ -3,6 +3,7 @@ package com.practicas.simulador_hipotecas.modelo;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.*;
@@ -16,8 +17,8 @@ class SimulacionTest {
 	@BeforeEach
 	void setUp() throws Exception{
 		hipotecas = new ArrayList<>();
-		hipoteca = new Hipoteca(120000.0,40000.0,80000.0,1000.0,1,1.0f,InteresTipo.fijo, null,1);
-		hipoteca2 = new Hipoteca(200000.0,40000.0,80000.0,1000.0,1,1.0f,InteresTipo.fijo, null,1);
+		hipoteca = new Hipoteca(25000.0,200000.0,40000.0,80000.0,1000.0,1,2,1.0f,InteresTipo.fijo, null, new Date(),15000.0,2500.0,1000.0,true);
+		hipoteca2 = new Hipoteca(25000.0,200000.0,40000.0,80000.0,1000.0,1,2,1.0f,InteresTipo.variable, null, new Date(),15000.0,2500.0,1000.0,true);
 		hipotecas.add(hipoteca);
 		hipotecas.add(hipoteca2);
 		simulacion = new Simulacion(hipotecas, hipoteca,5);
