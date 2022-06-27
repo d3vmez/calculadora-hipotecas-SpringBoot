@@ -20,7 +20,6 @@ public class Amortizacion {
 	
 	// Constructores
 	public Amortizacion() {
-		super();
 	
 	}
 
@@ -86,13 +85,11 @@ public class Amortizacion {
 		totalCapitalPorAmortizar = capitalPorAmortizar;
 	}
 
-	@Override
-	public String toString() {
-		return "Amortizacion [numeroCuota=" + numeroCuota + ", cuota=" + cuota + ", interes=" + interes
-				+ ", cuotaAmortizacion=" + cuotaAmortizacion + ", totalAmortizado=" + totalAmortizado
-				+ ", capitalPorAmortizar=" + capitalPorAmortizar + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Amortizacion [numeroCuota=" + numeroCuota + ", cuota=" + cuota + ", interes=" + interes
+//				+ ", cuotaAmortizacion=" + cuotaAmortizacion + ", totalAmortizado=" + totalAmortizado
+//				+ ", capitalPorAmortizar=" + capitalPorAmortizar + "]";
+//	}
 
-
-	
 }
