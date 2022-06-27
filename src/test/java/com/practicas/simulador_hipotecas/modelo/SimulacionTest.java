@@ -9,7 +9,7 @@ import org.junit.jupiter.api.*;
 
 class SimulacionTest {
 
-	Simulacion simulacion;
+	Simulacion simulacion,simulacion2;
 	List<Hipoteca> hipotecas;
 	Hipoteca hipoteca, hipoteca2;
 	
