@@ -95,6 +95,7 @@ public class Hipoteca{
 	 * @param Hipoteca hipoteca, objeto que se quiere clonar
 	 */
 	public Hipoteca(Hipoteca hipoteca) {
+		this.totalIntereses = hipoteca.getTotalIntereses();
 		this.capitalInmueble = hipoteca.getCapitalInmueble();
 		this.capitalAportado = hipoteca.getCapitalAportado();
 		this.prestamo = hipoteca.getPrestamo();
@@ -103,6 +104,12 @@ public class Hipoteca{
 		this.plazoRestante = hipoteca.getPlazoRestante();
 		this.tasaInteres = hipoteca.getTasaInteres();
 		this.tipoInteres = hipoteca.getTipoInteres();
+		this.amortizaciones = hipoteca.getAmortizaciones();
+		this.edad = hipoteca.getEdad();
+		this.ahorros = hipoteca.getAhorros();
+		this.nomina = hipoteca.getNomina();
+		this.otrosPrestamos = hipoteca.getOtrosPrestamos();
+		this.primeraVivienda = hipoteca.isPrimeraVivienda();
 	}
 
 	// Métodos de acceso
