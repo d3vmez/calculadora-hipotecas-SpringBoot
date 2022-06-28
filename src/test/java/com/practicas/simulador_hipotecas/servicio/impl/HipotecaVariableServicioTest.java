@@ -41,12 +41,27 @@ class HipotecaVariableServicioTest {
 
 	@Test
 	void testCalcularTasaInteresFloat() {
-		assertEquals(0.0018333334010094404, hipotecaVariableServicio.calcularTasaInteres(interes));
+		assertEquals(0.0023318841122090816, hipotecaVariableServicio.calcularTasaInteres(interes));
 	}
 
 	@Test
 	void testCalcularTasaInteresHipoteca() {
 		hipotecaVariableServicio.calcularTasaInteres(hipoteca);
+	}
+	
+	@Test
+	void testObtenerEuribor() {
+		hipotecaVariableServicio.obtenerEURIBOR();;
+	}
+	
+	@Test
+	void testInicializarPlazoRestanteHipoteca() {
+		hipotecaVariableServicio.inicializarPlazoRestante(hipoteca);
+	}
+	
+	@Test
+	void recalcularHipotecaHipoteca() {
+		hipotecaVariableServicio.recalcularHipoteca(hipoteca);
 	}
 
 }

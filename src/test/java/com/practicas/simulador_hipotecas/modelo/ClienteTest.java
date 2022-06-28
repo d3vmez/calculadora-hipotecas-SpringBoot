@@ -64,7 +64,7 @@ class ClienteTest {
 
 	@Test
 	void testGetId() {
-		assertEquals(1, cliente.getId());;
+		assertEquals(1, cliente.getId());
 	}
 
 	@Test

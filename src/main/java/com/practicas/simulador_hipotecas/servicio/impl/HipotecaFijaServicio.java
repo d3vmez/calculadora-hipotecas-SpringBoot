@@ -10,11 +10,11 @@ import com.practicas.simulador_hipotecas.servicio.IHipotecaServicio;
 @Service
 public class HipotecaFijaServicio implements IHipotecaServicio{
 		
-	@Autowired
-	private AmortizacionServicio amortizacionServicio;
 	
-	@Autowired
-	private PonderacionInteresServicio ponderacionInteresServicio;
+	private AmortizacionServicio amortizacionServicio = new AmortizacionServicio();
+	
+	
+	private PonderacionInteresServicio ponderacionInteresServicio = new PonderacionInteresServicio();
 
 	@Override
 	public void calcularCuota(Hipoteca hipoteca) {

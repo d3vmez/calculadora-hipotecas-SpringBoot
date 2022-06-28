@@ -8,12 +8,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.practicas.simulador_hipotecas.configuracion.ConfiguracionTest;
 import com.practicas.simulador_hipotecas.modelo.Amortizacion;
@@ -25,11 +21,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = { ConfiguracionTest.class })
 class HipotecaFijaServicioTest {
 
-	@Autowired
 	AmortizacionServicio amortizacionServicio;
 	
-	@Autowired
-	private PonderacionInteresServicio ponderacionInteresServicio;
+	PonderacionInteresServicio ponderacionInteresServicio;
 	
 	HipotecaFijaServicio hipotecaFijaServicio;
 	Hipoteca hipoteca;
@@ -41,8 +35,9 @@ class HipotecaFijaServicioTest {
 	void setUp() throws Exception {
 		hipotecaFijaServicio = new HipotecaFijaServicio();
 		fecha = new Date();
-		tasaInteres = 2.0f;
+		tasaInteres = 2.0f;		
 		hipoteca = new Hipoteca(25000.0,200000.0,40000.0,80000.0,1000.0,1,12,1.0f,InteresTipo.fijo, amortizaciones, fecha,15000.0,2500.0,1000.0,true);
+
 	}
 
 	@Test
@@ -52,7 +47,6 @@ class HipotecaFijaServicioTest {
 
 	@Test
 	void testCalcularAmortizaciones() {
-		this.amortizacionServicio = new AmortizacionServicio();
 		hipotecaFijaServicio.calcularAmortizaciones(hipoteca);
 	}
 
@@ -63,7 +57,6 @@ class HipotecaFijaServicioTest {
 
 	@Test
 	void testCalcularTasaInteresHipoteca() {
-		this.ponderacionInteresServicio = new PonderacionInteresServicio();
 		hipotecaFijaServicio.calcularTasaInteres(hipoteca);
 	}
 

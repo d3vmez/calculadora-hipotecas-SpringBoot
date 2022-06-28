@@ -13,8 +13,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 	
 	private static float EURIBOR = 0.2f/(100*12);
 
-	@Autowired
-	private AmortizacionServicio amortizacionServicio;
+	private AmortizacionServicio amortizacionServicio = new AmortizacionServicio();
 
 	@Override
 	public void calcularCuota(Hipoteca hipoteca) {
@@ -71,14 +70,14 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		return (tasaInteres/(100*Hipoteca.NMENSUALIDADES))+EURIBOR;
 	}
 	
-	private void obtenerEURIBOR() {
+	public void obtenerEURIBOR() {
 		EURIBOR = 0.2f/(100*12);
 		float variacionEURIBOR = (float) ((Math.random() * ((1 - (-1)) + 1)) + (-1));
 		EURIBOR += variacionEURIBOR/(100*Hipoteca.NMENSUALIDADES);
 	
 	}
 	
-	private void inicializarPlazoRestante(Hipoteca hipoteca) {
+	public void inicializarPlazoRestante(Hipoteca hipoteca) {
 		if(hipoteca.getPlazoRestante() == 0) {
 			
 			int nAnos = hipoteca.getPlazo();
@@ -88,7 +87,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 		}
 	}
 	
-	private void recalcularHipoteca(Hipoteca hipoteca) {
+	public void recalcularHipoteca(Hipoteca hipoteca) {
 		
 		//(Se recalcula cada año = cada 12 cuotas)
 		obtenerEURIBOR();

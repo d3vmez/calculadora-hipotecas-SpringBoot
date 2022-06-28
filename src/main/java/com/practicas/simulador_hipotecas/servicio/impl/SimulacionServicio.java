@@ -13,10 +13,10 @@ public class SimulacionServicio {
 	private static final int NSIMULACIONES = 100;
 	
 	@Autowired
-	private HipotecaFijaServicio hipotecaFijaServicio;
+	private HipotecaFijaServicio hipotecaFijaServicio = new HipotecaFijaServicio();
 	
 	@Autowired
-	private HipotecaVariableServicio hipotecaVariableServicio;
+	private HipotecaVariableServicio hipotecaVariableServicio = new HipotecaVariableServicio();
 	
 	public void generarHipotecas(Hipoteca hipoteca, Simulacion simulacion) {
 		
