@@ -30,18 +30,22 @@ class AmortizacionServicioTest {
 		hipoteca = new Hipoteca(25000.0, 200000.0, 40000.0, 80000.0, 1000.0, 1, 12, 1.0f, InteresTipo.fijo,
 				amortizaciones, fecha, 15000.0, 2500.0, 1000.0, true);
 		amortizacion = new Amortizacion(1,1000.0,0.0,1000.0,1000.0,79000.0);
+		amortizacionServicio.capitalPorAmortizar = hipoteca.getPrestamo();
+		amortizacionServicio.totalPorAmortizar = 0.0;
 	}
 
 	@Test
 	void testCrearAmortizacion() {
 		nCuotas = 1;
 		Amortizacion a = amortizacionServicio.crearAmortizacion(hipoteca, nCuotas, tasaInteres);
-		assertEquals(amortizacion.getCapitalPorAmortizar(), a.getCapitalPorAmortizar());
-		assertEquals(amortizacion.getCuota(), a.getCuota());
-		assertEquals(amortizacion.getCuotaAmortizacion(), a.getCuotaAmortizacion());
-		assertEquals(amortizacion.getInteres(), a.getInteres());
-		assertEquals(amortizacion.getNumeroCuota(), a.getNumeroCuota());
-		assertEquals(amortizacion.getTotalAmortizado(), a.getTotalAmortizado());
+		assertAll("Crear amortizacion 1",
+			()-> assertEquals(amortizacion.getCapitalPorAmortizar(), a.getCapitalPorAmortizar()),
+			()-> assertEquals(amortizacion.getCuota(), a.getCuota()),
+			()-> assertEquals(amortizacion.getCuotaAmortizacion(), a.getCuotaAmortizacion()),
+			()-> assertEquals(amortizacion.getInteres(), a.getInteres()),
+			()-> assertEquals(amortizacion.getNumeroCuota(), a.getNumeroCuota()),
+			()-> assertEquals(amortizacion.getTotalAmortizado(), a.getTotalAmortizado())
+		);
 	}
 
 	@Test
@@ -49,13 +53,14 @@ class AmortizacionServicioTest {
 		nCuotas = 3;
 		Amortizacion a = amortizacionServicio.crearAmortizacion(hipoteca, nCuotas, tasaInteres);
 		amortizacion.setNumeroCuota(nCuotas);
-		amortizacion.setCapitalPorAmortizar(-1000.0);
-		assertEquals(amortizacion.getCapitalPorAmortizar(), a.getCapitalPorAmortizar());
-		assertEquals(amortizacion.getCuota(), a.getCuota());
-		assertEquals(amortizacion.getCuotaAmortizacion(), a.getCuotaAmortizacion());
-		assertEquals(amortizacion.getInteres(), a.getInteres());
-		assertEquals(amortizacion.getNumeroCuota(), a.getNumeroCuota());
-		assertEquals(amortizacion.getTotalAmortizado(), a.getTotalAmortizado());
+		assertAll("Crear amortizacion 2",
+				()-> assertEquals(amortizacion.getCapitalPorAmortizar(), a.getCapitalPorAmortizar()),
+				()-> assertEquals(amortizacion.getCuota(), a.getCuota()),
+				()-> assertEquals(amortizacion.getCuotaAmortizacion(), a.getCuotaAmortizacion()),
+				()-> assertEquals(amortizacion.getInteres(), a.getInteres()),
+				()-> assertEquals(amortizacion.getNumeroCuota(), a.getNumeroCuota()),
+				()-> assertEquals(amortizacion.getTotalAmortizado(), a.getTotalAmortizado())
+			);
 	}
 
 }

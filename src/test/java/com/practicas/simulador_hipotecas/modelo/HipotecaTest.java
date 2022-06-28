@@ -195,7 +195,8 @@ class HipotecaTest {
 
 	@Test
 	void testGetEdad() {
-		assertEquals(new Date(), hipoteca2.getEdad());
+		Date fecha = new Date();
+		assertEquals(fecha, hipoteca2.getEdad());
 	}
 
 	@Test
