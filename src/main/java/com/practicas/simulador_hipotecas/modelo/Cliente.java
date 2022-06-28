@@ -131,6 +131,7 @@ public class Cliente {
 	public Cliente(Rol rol, int id, String email, String clave, String nombre, String apellido1, String apellido2,
 			String direccion, String provincia, String localidad, String telefono, String dni, Date fechaAlta,
 			Date fechaBaja, String imagen) {
+		this.rol = rol;
 		this.id = id;
 		this.email = email;
 		this.clave = clave;

@@ -48,13 +48,12 @@ class ClienteTest {
 		Cliente cliente2 = new Cliente();
 	}
 	
-//	@Test
-//	void testGetRol() {
-//		String r = rol.getRol().name();
-//		String r2 = cliente.getRol().getRol().name();
-//		
-//		assertEquals(r, r2);
-//	}
+	@Test
+	void testGetRol() {
+		String r = rol.getRol().name();
+		String r2 = cliente.getRol().getRol().name();
+		assertEquals(r,r2);
+	}
 
 	@Test
 	void testSetRol() {
