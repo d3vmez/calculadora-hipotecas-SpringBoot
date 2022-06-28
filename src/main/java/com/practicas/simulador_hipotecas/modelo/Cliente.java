@@ -128,10 +128,9 @@ public class Cliente {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	public Cliente(int id, String email, String clave, String nombre, String apellido1, String apellido2,
+	public Cliente(Rol rol, int id, String email, String clave, String nombre, String apellido1, String apellido2,
 			String direccion, String provincia, String localidad, String telefono, String dni, Date fechaAlta,
 			Date fechaBaja, String imagen) {
-		super();
 		this.id = id;
 		this.email = email;
 		this.clave = clave;
@@ -148,16 +147,16 @@ public class Cliente {
 		this.imagen = imagen;
 	}
 	public Cliente() {
-		super();
+		
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", email=" + email + ", clave=" + clave + ", nombre=" + nombre + ", apellido1="
-				+ apellido1 + ", apellido2=" + apellido2 + ", direccion=" + direccion + ", provincia=" + provincia
-				+ ", localidad=" + localidad + ", telefono=" + telefono + ", dni=" + dni + ", fechaAlta=" + fechaAlta
-				+ ", fechaBaja=" + fechaBaja + ", imagen=" + imagen + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Cliente [id=" + id + ", email=" + email + ", clave=" + clave + ", nombre=" + nombre + ", apellido1="
+//				+ apellido1 + ", apellido2=" + apellido2 + ", direccion=" + direccion + ", provincia=" + provincia
+//				+ ", localidad=" + localidad + ", telefono=" + telefono + ", dni=" + dni + ", fechaAlta=" + fechaAlta
+//				+ ", fechaBaja=" + fechaBaja + ", imagen=" + imagen + "]";
+//	}
 	
 	
 }

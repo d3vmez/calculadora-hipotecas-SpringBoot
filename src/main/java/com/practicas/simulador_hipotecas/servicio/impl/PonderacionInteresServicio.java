@@ -7,7 +7,7 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 @Service
 public class PonderacionInteresServicio {
 	
-	private static int acumuladorPesos;
+	public static int acumuladorPesos;
 	
 	public static final float INTERESMAX = 4.0f;
 	public static final float INTERESMIN = 2.0f;
@@ -19,7 +19,7 @@ public class PonderacionInteresServicio {
 	public static final float PESOPRESTAMOS = 0.2f * PESOTOTAL;
 	public static final float PESOVIVIENDA = 0.05f * PESOTOTAL;
 
-	public float calcularPeso(float pesoTotal, float floateresMax, float floateresMin) {
+	public float calcularPeso() {
 		
 		float peso = (INTERESMAX-INTERESMIN)/PESOTOTAL;
 		return peso;
@@ -91,7 +91,7 @@ public class PonderacionInteresServicio {
 		
 		
 		
-		float valorPeso = calcularPeso(PESOTOTAL, INTERESMAX, INTERESMIN);
+		float valorPeso = calcularPeso();
 		int nPesos = acumuladorPesos;
 		//resetear acumulador a 0
 		acumuladorPesos = 0;

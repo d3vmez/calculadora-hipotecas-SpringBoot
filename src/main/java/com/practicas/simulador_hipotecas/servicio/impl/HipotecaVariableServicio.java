@@ -104,7 +104,7 @@ public class HipotecaVariableServicio implements IHipotecaServicio{
 
 	@Override
 	public void calcularTasaInteres(Hipoteca hipoteca) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
