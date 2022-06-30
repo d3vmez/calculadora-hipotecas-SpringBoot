@@ -43,8 +43,9 @@ public class HipotecaControlador {
 		}
 		
 		model.addAttribute("hipoteca", new Hipoteca());
+		
 
-		return "index";
+		return "prueba2";
 	}
 
 	@PostMapping(RutaUtil.RUTA_HIPOTECA_SUBMIT)
