@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Clase para contener los datos de una hipoteca
  * 
  * @author Marcos
+ * @author Pablo
  *
  */
 public class Hipoteca{
@@ -36,14 +37,24 @@ public class Hipoteca{
 	private boolean primeraVivienda;
 
 	// Constructores
+	/////////////////////////////////////////////////////////////////
 	
 	/**
 	 * 
-	 * Constructor por defecto
+	 * Constructor por defecto con datos por defecto
 	 * 
 	 */
 	public Hipoteca() {
-		super();
+		
+		this.capitalInmueble = 120000.0;
+		this.capitalAportado = 40000.0;
+		this.plazo = 2;
+		this.tipoInteres = InteresTipo.fijo;
+		this.ahorros = 0.0;
+		this.nomina = 1000.0;
+		this.otrosPrestamos = 10000.0;
+		this.primeraVivienda = true;
+		
 	}
 
 	/**
@@ -105,7 +116,9 @@ public class Hipoteca{
 		this.tipoInteres = hipoteca.getTipoInteres();
 	}
 
+	/////////////////////////////////////////////////////////////////
 	// Métodos de acceso
+	////////////////////////////////////////////////////////////////
 
 	public double getCapitalInmueble() {
 		return capitalInmueble;
@@ -227,6 +240,7 @@ public class Hipoteca{
 		this.primeraVivienda = primeraVivienda;
 	}
 	
+	/////////////////////////////////////////////////////////////////
 	// Métodos
 
 	/**
@@ -238,6 +252,12 @@ public class Hipoteca{
 		this.amortizaciones.add(amortizacion);
 	}
 	
+	/**
+	 * 
+	 * Método para comprobar si la hipoteca es de tipo fijo
+	 * 
+	 * @return boolean true, si es una hipoteca de tipo fijo
+	 */
 	public boolean esTipoFijo() {
 		if(this.tipoInteres == (InteresTipo.fijo)) return true;
 		return false;
