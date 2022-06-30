@@ -53,28 +53,42 @@ public class HipotecaControlador {
 
 		// Validaciones
 		/////////////////////////////////////////////////////////////
-		
-		// Comprobación del importe inicial aportado cumple las siguientes 
+
+		// Comprobación del importe inicial aportado cumple las siguientes
 		// dos condiciones:
 		// El importe incial tiene que tener un valor superior a importe * porcentaje
 		// El importe incial no puede ser superior al capital del inmueble
-		
-		if(!ValidacionUtil.esImporteInicialValido(model, hipoteca.getCapitalInmueble(), hipoteca.getCapitalAportado())) return "index";
+
+		if (!ValidacionUtil.esImporteInicialValido(hipoteca.getCapitalInmueble(), hipoteca.getCapitalAportado())) {
+			model.addAttribute("errorImporte",
+					"Este importe tiene que ser superior al 10% del precio del inmueble y no mayor");
+			return "index";
+		}
 		
 		// Comprobación de que la edad del solicitante de la hipoteca
 		// se ecuentre en el rango [18 - 65]
 		// Si no se cumple la condición se redirige a la vista con un
 		// mensaje de error
-		
-		if(!ValidacionUtil.esEdadCorrecta(model, hipoteca.getEdad())) return "index";
-		
+
+		if (!ValidacionUtil.esEdadCorrecta(hipoteca.getEdad())) {
+			// Si la condición se cumple, mediante la clase Model se enviará a la
+			// vista un atributo que contiene un mensaje de error
+			model.addAttribute("errorEdad", "La edad tiene que estar entre 18 y 65 años");
+			return "index";
+		}
+			
 		// Comprobación de que la edad del solicitante de la hipoteca
 		// más la duración de la hipoteca no supere los 65 años
 		// Si no se cumple la condición se redirige a la vista con un
 		// mensaje de error
-		
-		if(!ValidacionUtil.esEdadCorrectaConCuota(model, hipoteca.getEdad(), hipoteca.getPlazo())) return "index";
-		
+
+		if (!ValidacionUtil.esEdadCorrectaConCuota(hipoteca.getEdad(), hipoteca.getPlazo())) {
+			// Si la condición se cumple, mediante la clase Model se enviará a la
+			// vista un atributo que contiene un mensaje de error
+			model.addAttribute("errorEdad", "Ya eres muy mayor");
+			return "index";
+		}
+			
 		/////////////////////////////////////////////////////////////
 		
 		hipotecaFijaServicio.calcularTasaInteres(hipoteca);

@@ -1,12 +1,22 @@
 package com.practicas.simulador_hipotecas.utilidades;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import org.springframework.ui.Model;
+import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * Clase que contiene las validaciones realizadas en el controlador HipotecaControlador
+ * 
+ * @author Marcos
+ * @author Pablo
+ *
+ */
+@Component
 public class ValidacionUtil {
 
 	private static final int EDADMAX = 65;
@@ -24,19 +34,17 @@ public class ValidacionUtil {
 	 * @param Date  fechaNacimiento
 	 * @return true si la edad es correcta
 	 */
-	public static boolean esEdadCorrecta(Model model, Date fechaNacimiento) {
+	public static boolean esEdadCorrecta (Date fechaNacimiento) {
 
 		int edad = calcularEdad(fechaNacimiento);
 
 		if (edad < EDADMIN || edad > EDADMAX) {
-			// Si la condición se cumple, mediante la clase Model se enviará a la
-			// vista un atributo que contiene un mensaje de error
-			model.addAttribute("errorEdad", "La edad tiene que estar entre 18 y 65 años");
+			
 			return false;
 		}
-
+		
 		return true;
-
+		
 	}
 
 	/**
@@ -49,14 +57,12 @@ public class ValidacionUtil {
 	 * @param int   plazo
 	 * @return true si la edad es correcta
 	 */
-	public static boolean esEdadCorrectaConCuota(Model model, Date fechaNacimiento, int plazo) {
+	public static boolean esEdadCorrectaConCuota (Date fechaNacimiento, int plazo) {
 
 		int edad = calcularEdad(fechaNacimiento);
 
 		if (plazo + edad > EDADMAX) {
-			// Si la condición se cumple, mediante la clase Model se enviará a la
-			// vista un atributo que contiene un mensaje de error
-			model.addAttribute("errorEdad", "Ya eres muy mayor");
+
 			return false;
 		}
 
@@ -70,27 +76,19 @@ public class ValidacionUtil {
 	 * @param Date fechaNacimiento
 	 * @return
 	 */
-	private static int calcularEdad(Date fechaNacimiento) {
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String fechaActualTemp = sdf.format(new Date());
-		int edad = 0;
-		try {
-			Date fechaActual = sdf.parse(fechaActualTemp);
-
-			long diff = fechaActual.getTime() - fechaNacimiento.getTime();
-			System.out.println(diff);
-
-			TimeUnit time = TimeUnit.DAYS;
-			long diffrence = time.convert(diff, TimeUnit.MILLISECONDS);
-			edad = (int) diffrence / 365;
-
-		} catch (ParseException e) {
-
-			e.printStackTrace();
-		}
-
+	private static int calcularEdad(Date fecha) {
+		
+		LocalDate fechaNacimiento = Instant.ofEpochMilli(fecha.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+		
+		LocalDate fechaActual = LocalDate.now();
+		
+		Period diferenciaFechas = Period.between(fechaNacimiento, fechaActual);
+		
+		int edad = diferenciaFechas.getYears();
 		return edad;
+		
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -107,17 +105,16 @@ public class ValidacionUtil {
 	 * @param double capitalAportado
 	 * @return true si el importe inicial aportado es válido
 	 */
-	public static boolean esImporteInicialValido(Model model, double capitalInmueble, double capitalAportado) {
+	public static boolean esImporteInicialValido(double capitalInmueble, double capitalAportado) {
 
-		if (capitalInmueble * 0.1 > capitalAportado || capitalInmueble < capitalAportado) {
-			model.addAttribute("errorImporte",
-					"Este importe tiene que ser superior al 10% del precio del inmueble y no mayor");
+		if (capitalInmueble * 0.1 > capitalAportado || capitalInmueble <= capitalAportado) {
+
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/////////////////////////////////////////////////////////////////
 
 }
