@@ -280,8 +280,7 @@
 									th:text="${#numbers.formatCurrency(amortizacion.cuotaAmortizacion)}"></td>
 								<td
 									th:text="${#numbers.formatCurrency(amortizacion.totalAmortizado)}"></td>
-								<td
-									th:text="${#numbers.formatCurrency(amortizacion.capitalPorAmortizar)}"></td>
+								<td th:text="${#numbers.formatCurrency(T(java.lang.Math).abs(amortizacion.capitalPorAmortizar))}"></td>
 
 							</tr>
 						</tbody>

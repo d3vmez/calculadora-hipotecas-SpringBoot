@@ -1,5 +1,8 @@
 package com.practicas.simulador_hipotecas.controlador;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +53,8 @@ public class HipotecaControlador {
 
 		// Si el modelo contiene el porcentaje de la simulación se envía a la vista
 		if(model.getAttribute("porcentaje")!=null) {
+			NumberFormat formatter = new DecimalFormat("0.00");
+			model.addAttribute("porcentaje", formatter.format(model.getAttribute("porcentaje")));
 			model.addAttribute("infoPorcentaje","Con los datos que has introducido hay un "+model.getAttribute("porcentaje")+"% de posibilidades"
 					+ "de que sea más caro a tipo fijo");
 		}
