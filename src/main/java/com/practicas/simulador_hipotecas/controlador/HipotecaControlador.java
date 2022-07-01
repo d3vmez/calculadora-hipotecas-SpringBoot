@@ -1,5 +1,6 @@
 package com.practicas.simulador_hipotecas.controlador;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,18 @@ import com.practicas.simulador_hipotecas.servicio.impl.SimulacionServicio;
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
 import com.practicas.simulador_hipotecas.utilidades.ValidacionUtil;
 
+/**
+ * 
+ * Controlador para la calculadora de hipotecas
+ * 
+ * @author Marcos
+ * @author Pablo
+ *
+ */
 @Controller
 public class HipotecaControlador {
+	
+	Logger log = Logger.getLogger(HipotecaControlador.class);
 
 	@Autowired
 	private HipotecaFijaServicio hipotecaFijaServicio;
@@ -28,24 +39,29 @@ public class HipotecaControlador {
 	@Autowired
 	private SimulacionServicio simulacionServicio;
 
-	@GetMapping(path = { RutaUtil.RUTA_INICIO })
+	@GetMapping(path = { RutaUtil.RUTA_INICIO})
 	public String mortgage(Model model) {
-		System.out.println("entro");
 
-		if (model.getAttribute("amortizaciones2") != null) {
-			model.addAttribute("amortizaciones", model.getAttribute("amortizaciones2"));
-			model.addAttribute("hipoteca2", model.getAttribute("hipoteca"));
+		// Si el modelo contiene amortizaciones se envían a la vista
+		if (model.getAttribute("amortizaciones") != null) {
+			model.addAttribute("amortizaciones", model.getAttribute("amortizaciones"));
+	
 		}
 
+		// Si el modelo contiene el porcentaje de la simulación se envía a la vista
 		if(model.getAttribute("porcentaje")!=null) {
 			model.addAttribute("infoPorcentaje","Con los datos que has introducido hay un "+model.getAttribute("porcentaje")+"% de posibilidades"
 					+ "de que sea más caro a tipo fijo");
 		}
 		
-		model.addAttribute("hipoteca", new Hipoteca());
+		// Si el modelo no contiene un objeto hipoteca, se crea
+		if(model.getAttribute("hipoteca") == null) {
+			model.addAttribute("hipoteca", new Hipoteca());
+		}
 		
-
-		return "prueba2";
+		model.addAttribute("hipoteca", model.getAttribute("hipoteca"));
+		
+		return RutaUtil.RUTA_HIPOTECA_VISTA;
 	}
 
 	@PostMapping(RutaUtil.RUTA_HIPOTECA_SUBMIT)
@@ -63,7 +79,7 @@ public class HipotecaControlador {
 		if (!ValidacionUtil.esImporteInicialValido(hipoteca.getCapitalInmueble(), hipoteca.getCapitalAportado())) {
 			model.addAttribute("errorImporte",
 					"Este importe tiene que ser superior al 10% del precio del inmueble y no mayor");
-			return "index";
+			return RutaUtil.RUTA_HIPOTECA_VISTA;
 		}
 		
 		// Comprobación de que la edad del solicitante de la hipoteca
@@ -75,7 +91,7 @@ public class HipotecaControlador {
 			// Si la condición se cumple, mediante la clase Model se enviará a la
 			// vista un atributo que contiene un mensaje de error
 			model.addAttribute("errorEdad", "La edad tiene que estar entre 18 y 65 años");
-			return "index";
+			return RutaUtil.RUTA_HIPOTECA_VISTA;
 		}
 			
 		// Comprobación de que la edad del solicitante de la hipoteca
@@ -87,12 +103,21 @@ public class HipotecaControlador {
 			// Si la condición se cumple, mediante la clase Model se enviará a la
 			// vista un atributo que contiene un mensaje de error
 			model.addAttribute("errorEdad", "Ya eres muy mayor");
-			return "index";
+			return RutaUtil.RUTA_HIPOTECA_VISTA;
 		}
 			
 		/////////////////////////////////////////////////////////////
 		
-		hipotecaFijaServicio.calcularTasaInteres(hipoteca);
+		//hipotecaFijaServicio.calcularTasaInteres(hipoteca);
+		
+		// Se realiza la simulación para comprobar si la contratación
+		// de una hipoteca variable es más beneficiosa que una fija
+		
+		// Se crea una instancia de Simulacion para almecenar tanto
+		// la hipoteca hija como una lista de hipotecas variables
+		Simulacion simulacion = new Simulacion();
+		simulacionServicio.generarHipotecas(hipoteca, simulacion);
+		simulacionServicio.calcularProbabilidad(simulacion);
 
 		// Depende si la hipoteca es fija o variable los cálculos varían
 		if (hipoteca.esTipoFijo()) {
@@ -105,21 +130,13 @@ public class HipotecaControlador {
 			// aunque varía año a año
 			// Se calculan las amortizaciones de cada uno de los meses
 			hipotecaVariableServicio.calcularAmortizaciones(hipoteca);
+	
 		}
 
-		// Se realiza la simulación para comprobar si la contratación
-		// de una hipoteca variable es más beneficiosa que una fija
-		
-		// Se crea una instancia de Simulacion para almecenar tanto
-		// la hipoteca hija como una lista de hipotecas variables
-		Simulacion simulacion = new Simulacion();
-		simulacionServicio.generarHipotecas(hipoteca, simulacion);
-		simulacionServicio.calcularProbabilidad(simulacion);
-		
 		//Envio de datos al endpoint RUTA_INICIO
 		// TODO seguir depurando aqui
 		redirectAttributes.addFlashAttribute("porcentaje", simulacion.getPorcentaje());
-		redirectAttributes.addFlashAttribute("amortizaciones2", hipoteca.getAmortizaciones());
+		redirectAttributes.addFlashAttribute("amortizaciones", hipoteca.getAmortizaciones());
 		redirectAttributes.addFlashAttribute("hipoteca", hipoteca);
 
 		return "redirect:" + RutaUtil.RUTA_INICIO;

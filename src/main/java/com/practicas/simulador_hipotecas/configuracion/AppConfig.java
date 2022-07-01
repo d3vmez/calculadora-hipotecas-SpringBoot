@@ -5,6 +5,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * 
+ * Clase de configuración para el encriptado de las claves de los clientes
+ * 
+ * @author Marcos
+ * @author Pablo
+ * 
+ *
+ */
 @Configuration
 public class AppConfig implements WebMvcConfigurer{
 	

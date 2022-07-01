@@ -12,8 +12,6 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 
 public interface IHipotecaServicio {
 	
-	// Métodos abstractos
-	
 	/**
 	 * 
 	 * Método para calcular la cuota que se deberá pagar al mes, incluyendo los intereses
@@ -39,12 +37,8 @@ public interface IHipotecaServicio {
 	 * @param float tasaInteres
 	 * @return float tasaInteres
 	 */
-	public float calcularTasaInteres(float tasaInteres);
+
+	public float calcularTasaInteres(Hipoteca hipoteca);
 	
-	/**
-	 * @param hipoteca
-	 * @return
-	 */
-	public void calcularTasaInteres(Hipoteca hipoteca);
 
 }

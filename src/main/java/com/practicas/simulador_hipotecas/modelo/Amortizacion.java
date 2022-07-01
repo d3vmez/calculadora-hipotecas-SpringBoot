@@ -5,11 +5,10 @@ package com.practicas.simulador_hipotecas.modelo;
  * Clase para una amortización
  * 
  * @author Marcos
+ * @author Pablo
  *
  */
 public class Amortizacion {
-	
-	public static double totalCapitalPorAmortizar;
 	
 	private int numeroCuota;
 	private double cuota;
@@ -83,14 +82,13 @@ public class Amortizacion {
 
 	public void setCapitalPorAmortizar(double capitalPorAmortizar) {
 		this.capitalPorAmortizar = capitalPorAmortizar;
-		totalCapitalPorAmortizar = capitalPorAmortizar;
+
 	}
 
 	@Override
 	public String toString() {
-		return "Amortizacion [numeroCuota=" + numeroCuota + ", cuota=" + cuota + ", interes=" + interes
-				+ ", cuotaAmortizacion=" + cuotaAmortizacion + ", totalAmortizado=" + totalAmortizado
-				+ ", capitalPorAmortizar=" + capitalPorAmortizar + "]";
+		return  "cuota= " + cuota + ", interes=" + interes
+				;
 	}
 
 

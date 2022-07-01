@@ -8,8 +8,10 @@ import com.practicas.simulador_hipotecas.modelo.Hipoteca;
 /**
  * 
  * Servicio para la clase Amortizacion
+ * Este servicio se encarga de crear las amortizaciones para la hipoteca
  * 
  * @author Marcos
+ * @author Pablo
  *
  */
 @Service
@@ -30,29 +32,36 @@ public class AmortizacionServicio{
 	 */
 	public Amortizacion crearAmortizacion(Hipoteca hipoteca, int nCuotas, float tasaInteres) {
 		
+		// Si es la primera cuota se inicalizan los valores para 
+		// el capital por amortizar, que se corresponde con el préstamo inicial,
+		// y total amortizado, que será 0
 		if(nCuotas == 1) {
 			AmortizacionServicio.capitalPorAmortizar = hipoteca.getPrestamo();
 			AmortizacionServicio.totalPorAmortizar = 0.0;
-			//return new Amortizacion(0, 0.0 ,0.0 ,0.0 ,0.0 , prestamo);
+	
 		}
 		
-		//Calcular intereses
+		// Calcular intereses
 		double intereses = calcularIntereses(tasaInteres, capitalPorAmortizar);
+		// Actualizar la cantidad de intereses que se han pagado
 		actualizarInteresesTotal(intereses, hipoteca);
 		
-		//Calcular cuota de amortizacion
+		// Calcular cuota de amortizacion
 		double cuotaAmortizacion = calcularCuotaAmortizacion(hipoteca.getCuota(), intereses);
 		
-		//Calcular el total amortizado
+		// Calcular el total amortizado
 		actualizarTotalAmortizado(cuotaAmortizacion);
 		
-		//Calcular capital por amortizar
+		// Calcular capital por amortizar
 		actualizarCapitalPorAmortizar(cuotaAmortizacion);
 		
+		// Se devuelve un objeto de Amortizacion para que después se añada a la hipoteca
 		return new Amortizacion(nCuotas, hipoteca.getCuota(), intereses, cuotaAmortizacion, AmortizacionServicio.totalPorAmortizar, AmortizacionServicio.capitalPorAmortizar);
 		
 	}
 	
+	// Métodos auxiliares
+	/////////////////////////////////////////////////////////////////
 		
 	/**
 	 * 
@@ -64,14 +73,13 @@ public class AmortizacionServicio{
 	 */
 	private double calcularIntereses(float tasaInteres, double capitalPorAmortizar) {
 	
-		
 		return capitalPorAmortizar * tasaInteres;
 		
 	}
 	
 	/**
 	 * 
-	 * Método para calcular el importe de la amortizacion, sin contar con los intereses
+	 * Método para calcular el importe de la cuota, sin contar con los intereses
 	 * 
 	 * @param double cuota
 	 * @param double interes
@@ -87,11 +95,11 @@ public class AmortizacionServicio{
 	 * 
 	 * Método para actualizar el total amortizado
 	 * 
-	 * @param double totalAmortizado
+	 * @param double cuota, importe de la cuota mensual
 	 */
-	private void actualizarTotalAmortizado(double totalAmortizado) {
+	private void actualizarTotalAmortizado(double cuota) {
 		
-		AmortizacionServicio.totalPorAmortizar += totalAmortizado;
+		AmortizacionServicio.totalPorAmortizar += cuota;
 		
 	}
 	
@@ -99,13 +107,11 @@ public class AmortizacionServicio{
 	 * 
 	 * Método para actualizar el capital por amortizar
 	 * 
-	 * @param DOUBLE totalAmortizado
+	 * @param DOUBLE cuota, importe de la cuota mensual
 	 */
-	private void actualizarCapitalPorAmortizar(double totalAmortizado) {
+	private void actualizarCapitalPorAmortizar(double cuota) {
 		
-		AmortizacionServicio.capitalPorAmortizar -= totalAmortizado;
-		Amortizacion.totalCapitalPorAmortizar = AmortizacionServicio.capitalPorAmortizar;
-		
+		AmortizacionServicio.capitalPorAmortizar -= cuota;
 	}
 	
 	/**

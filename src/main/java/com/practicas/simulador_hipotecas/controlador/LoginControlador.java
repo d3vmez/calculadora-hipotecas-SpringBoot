@@ -5,6 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.practicas.simulador_hipotecas.utilidades.RutaUtil;
 
+/**
+ * 
+ * Controlador para el login
+ * 
+ * @author Marcos
+ * @author Pablo
+ *
+ */
 @Controller
 public class LoginControlador {
 

@@ -8,17 +8,10 @@ public class Simulacion {
 	private List<Hipoteca> hipotecasVariables = new ArrayList<>();
 	private Hipoteca hipotecaFija;
 	private int nSimulaciones;
-	
 	private float porcentaje;
 	
-	public float getPorcentaje() {
-		return porcentaje;
-	}
-
-	public void setPorcentaje(float porcentaje) {
-		this.porcentaje = porcentaje;
-	}
-
+	// Constructores
+	/////////////////////////////////////////////////////////////////
 	public Simulacion() {
 		super();
 		
@@ -29,6 +22,17 @@ public class Simulacion {
 		this.hipotecasVariables = hipotecasVariables;
 		this.hipotecaFija = hipotecaFija;
 		this.nSimulaciones = nSimulaciones;
+	}
+	
+	// Métodos de acceso
+	/////////////////////////////////////////////////////////////////
+	
+	public float getPorcentaje() {
+		return porcentaje;
+	}
+
+	public void setPorcentaje(float porcentaje) {
+		this.porcentaje = porcentaje;
 	}
 
 	public List<Hipoteca> getHipotecasVariables() {

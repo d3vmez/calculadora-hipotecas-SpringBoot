@@ -267,29 +267,27 @@ public class Hipoteca{
 	 * 
 	 * Método para calcular el importe final del préstamo
 	 * 
-	 * @param Hipoteca hipoteca
+	 * 
 	 */
-	public double calcularValorDelPrestamo(Hipoteca hipoteca) {
+	public void calcularValorDelPrestamo() {
 		
-		double capitalInmueble = hipoteca.getCapitalInmueble();
-		double capitalAportado = hipoteca.getCapitalAportado();
+		double capitalInmueble = this.getCapitalInmueble();
+		double capitalAportado = this.getCapitalAportado();
 		
 		double prestamo = capitalInmueble-capitalAportado;
-		hipoteca.setPrestamo(prestamo);
-		
-		return prestamo;
+		this.setPrestamo(prestamo);
+			
 	}
 	
 	/**
 	 * 
 	 * Método para transformar el plazo en años en mensualidades
 	 * 
-	 * @param int nAnos, número de años que durará la hipoteca
 	 * @return int número de mensualidades
 	 */
-	public int calcularNCuotas (int nAnos) {
+	public int calcularNCuotas () {
 		
-		return nAnos * Hipoteca.NMENSUALIDADES;
+		return this.plazo * Hipoteca.NMENSUALIDADES;
 		
 	}
 	

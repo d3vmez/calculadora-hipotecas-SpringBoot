@@ -66,7 +66,7 @@
 			<header class="pb-3 mb-4 border-bottom">
 				<a href="/"
 					class="d-flex align-items-center text-dark text-decoration-none">
-					<span class="fs-4">Calculadora hipotecas</span>
+					<h1 class="display-5 fw-bold">Calculadora hipotecas</h1>
 				</a>
 			</header>
 
@@ -127,6 +127,8 @@
 								<div class="col-lg-6 mb-4">
 									<label class="form-label">Fecha nacimiento</label> <input
 										type="date" required class="form-control" th:field="*{edad}">
+									<span th:if="${errorEdad}" th:text="${errorEdad}"
+										class="text-danger" id="errorEdad"></span>
 								</div>
 							</div>
 
@@ -160,7 +162,7 @@
 
 							<div class="row mt-3">
 								<div class="col-auto">
-									<button class="btn btn-success" type="submit">Calcular
+									<button class="btn btn-primary" type="submit">Calcular
 										hipoteca</button>
 								</div>
 
@@ -174,13 +176,14 @@
 
 				<div class="col-md-6">
 					<div class="h-100 p-5 bg-light border rounded-3">
-
+						<h2>Información de la hipoteca</h2>
 						<div class="row gx-3">
 							<div class="card text-white bg-dark m-1 col-lg-4"
 								style="max-width: 11rem;">
 								<div class="card-header">Precio inmueble</div>
 								<div class="card-body">
-									<h5 class="card-title">Success card title</h5>
+									<h5 class="card-title"
+										th:text="${#numbers.formatCurrency(hipoteca.capitalInmueble)}"></h5>
 								</div>
 							</div>
 
@@ -188,7 +191,8 @@
 								style="max-width: 11rem;">
 								<div class="card-header">Importe inicial</div>
 								<div class="card-body">
-									<h5 class="card-title">Success card title</h5>
+									<h5 class="card-title"
+										th:text="${#numbers.formatCurrency(hipoteca.capitalAportado)}"></h5>
 								</div>
 							</div>
 
@@ -196,9 +200,54 @@
 								style="max-width: 11rem;">
 								<div class="card-header">Préstamo</div>
 								<div class="card-body">
-									<h5 class="card-title">Success card title</h5>
+									<h5 class="card-title"
+										th:text="${#numbers.formatCurrency(hipoteca.prestamo)}"></h5>
 								</div>
 							</div>
+						</div>
+
+						<div class="row gx-3">
+
+							<div class="card text-white bg-dark m-1 col-lg-4"
+								style="max-width: 11rem;">
+								<div class="card-header">Cuota mensual</div>
+								<div class="card-body">
+									<h5 class="card-title"
+										th:text="${#numbers.formatCurrency(hipoteca.cuota)}"></h5>
+								</div>
+							</div>
+
+							<div class="card text-white bg-dark m-1 col-lg-4"
+								style="max-width: 11rem;">
+								<div class="card-header">
+									Interés <strong th:text="${hipoteca.tipoInteres}"></strong>
+								</div>
+								<div class="card-body">
+									<h5 class="card-title" th:text="${hipoteca.tasaInteres + '%'}"></h5>
+								</div>
+							</div>
+
+							<div class="card text-white bg-dark m-1 col-lg-4"
+								style="max-width: 11rem;">
+								<div class="card-header">Total intereses</div>
+								<div class="card-body">
+									<h5 class="card-title"
+										th:text="${#numbers.formatCurrency(hipoteca.totalIntereses)}"></h5>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row gx-3">
+
+							<div class="card text-white bg-primary m-1"
+								th:if="${infoPorcentaje}">
+								<div class="card-header">¿Más barato?</div>
+								<div class="card-body">
+									<h5 class="card-title" th:text="${infoPorcentaje}"></h5>
+								</div>
+							</div>
+
 						</div>
 
 
@@ -207,9 +256,9 @@
 			</div>
 
 
-			<div class="p-5 mb-4 bg-light rounded-3">
+			<div class="p-5 mb-4 bg-light rounded-3" th:if="${amortizaciones}">
 				<div class="container-fluid py-5">
-					<h1 class="display-5 fw-bold">Amortizaciones</h1>
+					<h2>Amortizaciones</h2>
 					<table id="table_id" class="display">
 						<thead>
 							<tr>

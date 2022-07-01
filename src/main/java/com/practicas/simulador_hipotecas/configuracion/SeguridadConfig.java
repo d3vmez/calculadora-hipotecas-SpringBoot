@@ -13,6 +13,14 @@ import com.practicas.simulador_hipotecas.servicio.impl.ClienteServicio;
 
 
 
+/**
+ * 
+ * Clase de configuración para la seguridad de los endpoints del contralador
+ * 
+ * @author Marcos
+ * @author Pablo
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class SeguridadConfig extends WebSecurityConfigurerAdapter {
@@ -40,9 +48,7 @@ public class SeguridadConfig extends WebSecurityConfigurerAdapter {
 				.formLogin().loginPage("/login").failureUrl("/login?error=true").permitAll()
 
 				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
-				
-
-		
+					
 	}
 
 }
